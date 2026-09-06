@@ -107,6 +107,7 @@ def main() -> None:
         package_manifest = {
             "package_format": PACKAGE_FORMAT,
             "manifest_version": manifest["version"],
+            "evaluation_manifest": manifest,
             "task_type": task["task_type"],
             "task_title": task["title"],
             "audio_bitrate": bitrate,
@@ -137,6 +138,7 @@ def main() -> None:
     all_manifest = {
         "package_format": ALL_TASKS_PACKAGE_FORMAT,
         "manifest_version": manifest["version"],
+        "evaluation_manifest": manifest,
         "scope": "all_tasks",
         "task_count": len(task_entries),
         "tasks": task_entries,

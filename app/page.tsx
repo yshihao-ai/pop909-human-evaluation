@@ -77,8 +77,51 @@ type LocalPackageManifest = {
   tasks?: LocalPackageTask[];
   file_count: number;
   files: PackageFile[];
+  evaluation_manifest?: Manifest;
 };
 type LoadedPackage = { title: string; fileCount: number; bitrate: string };
+
+function packageManifestForSite(baseline: Manifest, candidate: Manifest) {
+  if (!candidate || candidate.study_id !== baseline.study_id || !candidate.version || !Array.isArray(candidate.tasks)) {
+    throw new Error('数据包内的评测配置无效。');
+  }
+  const taskTypes = candidate.tasks.map((item) => item.task_type);
+  if (candidate.tasks.length !== baseline.tasks.length || new Set(taskTypes).size !== baseline.tasks.length || baseline.tasks.some((item) => !taskTypes.includes(item.task_type))) {
+    throw new Error('数据包内的评测任务与当前网站不一致。');
+  }
+  const packagedTasks = new Map(candidate.tasks.map((item) => [item.task_type, item]));
+  const tasks = baseline.tasks.map((siteTask) => {
+    const packagedTask = packagedTasks.get(siteTask.task_type);
+    if (!packagedTask || !Array.isArray(packagedTask.groups)) throw new Error(`数据包缺少“${siteTask.title}”的抽样配置。`);
+    const siteMetricIds = siteTask.metrics.map((metric) => metric.id);
+    const packageMetricIds = packagedTask.metrics?.map((metric) => metric.id) ?? [];
+    if (siteMetricIds.join('\u0000') !== packageMetricIds.join('\u0000')) throw new Error(`“${siteTask.title}”的评分指标与网站不一致。`);
+    const samplingGroups = packagedTask.sampling_groups?.length
+      ? packagedTask.sampling_groups
+      : [{ id: 'primary', title: '初始抽样', sample_count: packagedTask.groups.length }];
+    const samplingIds = samplingGroups.map((entry) => entry.id);
+    if (new Set(samplingIds).size !== samplingIds.length) throw new Error(`“${siteTask.title}”包含重复的抽样组 ID。`);
+    const groupIds = new Set<string>();
+    for (const group of packagedTask.groups) {
+      if (!group?.group_id || groupIds.has(group.group_id) || !Array.isArray(group.samples) || !group.samples.length) {
+        throw new Error(`“${siteTask.title}”包含无效或重复的样本组。`);
+      }
+      groupIds.add(group.group_id);
+      const samplingId = group.sampling_group_id ?? 'primary';
+      if (!samplingIds.includes(samplingId)) throw new Error(`“${siteTask.title}”的样本引用了未知抽样组。`);
+      const audio = [...(group.reference ? [group.reference] : []), ...group.samples];
+      if (audio.some((sample) => !sample?.model || !/^\/audio\/[A-Za-z0-9._/-]+\.mp3$/i.test(sample.audio_url) || sample.audio_url.split('/').includes('..'))) {
+        throw new Error(`“${siteTask.title}”包含无效的本地音频路径。`);
+      }
+    }
+    for (const samplingGroup of samplingGroups) {
+      const count = packagedTask.groups.filter((group) => (group.sampling_group_id ?? 'primary') === samplingGroup.id).length;
+      if (samplingGroup.sample_count !== count) throw new Error(`“${siteTask.title} / ${samplingGroup.title}”的样本数量不一致。`);
+    }
+    return { ...siteTask, sampling_groups: samplingGroups, groups: packagedTask.groups };
+  });
+  return { ...baseline, version: candidate.version, tasks };
+}
 
 function selectedPath(file: File) {
   const path = (file.webkitRelativePath || file.name).replaceAll('\\', '/');
@@ -316,7 +359,10 @@ export default function Home() {
       if (packageFiles.length !== 1) throw new Error('请选择一个完整解压的数据包文件夹。');
       const packageManifest = JSON.parse(await packageFiles[0].text()) as LocalPackageManifest;
       if (!['pop909-local-audio-v1', 'pop909-local-audio-v2'].includes(packageManifest.package_format)) throw new Error('无法识别这个数据包格式。');
-      if (packageManifest.manifest_version !== manifest.version) throw new Error(`数据包版本不匹配：需要 ${manifest.version}。`);
+      const effectiveManifest = packageManifest.evaluation_manifest
+        ? packageManifestForSite(manifest, packageManifest.evaluation_manifest)
+        : manifest;
+      if (packageManifest.manifest_version !== effectiveManifest.version) throw new Error(`数据包内的版本信息不一致：${packageManifest.manifest_version}。`);
       const packageTasks: LocalPackageTask[] = packageManifest.package_format === 'pop909-local-audio-v2'
         ? packageManifest.tasks ?? []
         : [{
@@ -327,7 +373,7 @@ export default function Home() {
           }];
       if (!packageTasks.length) throw new Error('数据包没有登记任何评测任务。');
       const targetTasks = packageTasks.map((packageTask) => {
-        const targetTask = manifest.tasks.find((item) => item.task_type === packageTask.task_type);
+        const targetTask = effectiveManifest.tasks.find((item) => item.task_type === packageTask.task_type);
         if (!targetTask) throw new Error(`数据包中的任务不在当前评测版本中：${packageTask.task_type}`);
         const taskPaths = new Set(targetTask.groups.flatMap((entry) => [
           ...(entry.reference ? [entry.reference.audio_url.replace(/^\/+/, '')] : []),
@@ -338,7 +384,7 @@ export default function Home() {
       });
       if (packageManifest.package_format === 'pop909-local-audio-v2') {
         const taskTypes = new Set(packageTasks.map((item) => item.task_type));
-        if (packageManifest.scope !== 'all_tasks' || packageManifest.task_count !== manifest.tasks.length || taskTypes.size !== manifest.tasks.length || manifest.tasks.some((item) => !taskTypes.has(item.task_type))) {
+        if (packageManifest.scope !== 'all_tasks' || packageManifest.task_count !== effectiveManifest.tasks.length || taskTypes.size !== effectiveManifest.tasks.length || effectiveManifest.tasks.some((item) => !taskTypes.has(item.task_type))) {
           throw new Error('这个总包没有完整包含当前版本的所有评测任务。');
         }
       }
@@ -379,13 +425,14 @@ export default function Home() {
           bitrate: packageTask.audio_bitrate,
         }])),
       }));
+      setManifest(effectiveManifest);
       if (targetTasks.length === 1) {
-        const targetIndex = manifest.tasks.findIndex((item) => item.task_type === targetTasks[0].targetTask.task_type);
+        const targetIndex = effectiveManifest.tasks.findIndex((item) => item.task_type === targetTasks[0].targetTask.task_type);
         setTaskIndex(targetIndex);
       }
       setActiveAudio(null);
-      setPackageMessage(targetTasks.length === manifest.tasks.length
-        ? `已一次加载全部 ${targetTasks.length} 个任务，共 ${packageManifest.file_count} 个本地音频。`
+      setPackageMessage(targetTasks.length === effectiveManifest.tasks.length
+        ? `已从任务包加载最新配置及全部 ${targetTasks.length} 个任务，共 ${packageManifest.file_count} 个本地音频。`
         : `已验证「${targetTasks[0].targetTask.title}」：${packageManifest.file_count} 个本地音频。`);
     } catch (error) {
       setPackageMessage(error instanceof Error ? error.message : '数据包读取失败。');
@@ -562,7 +609,7 @@ export default function Home() {
                   </div>;
                 })}
               </div>
-              <p className="mt-3 border-t border-border pt-3 text-xs leading-5 text-muted-foreground">请选择“全部任务”总包解压后的文件夹。文件只在本机读取，不会上传；重新打开浏览器后需要再次选择。</p>
+              <p className="mt-3 border-t border-border pt-3 text-xs leading-5 text-muted-foreground">请选择“全部任务”总包解压后的文件夹。任务、抽样组和音频会一起加载；以后更换最新版任务包即可，无需更新网页。文件只在本机读取，不会上传。</p>
             </section>
             <section className="rounded-2xl border border-border bg-card p-4">
               <div className="mb-3 flex items-center justify-between"><span className="text-sm font-semibold">总体进度</span><span className="font-mono text-xs text-muted-foreground">{completedGroups} / {totalGroups}</span></div>

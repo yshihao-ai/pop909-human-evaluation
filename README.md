@@ -49,7 +49,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 全部预处理通过后，可运行 `python tools/prepare_evaluation.py web-manifest --config evaluation.config.json`，在 `evaluation_workspace/web_data` 生成网页配置。该命令遇到任何缺失或失败样本都会停止；存在长度警告时仅生成带提示的 development 配置。随后运行 `python tools/verify_evaluation.py --config evaluation.config.json` 验证源音符事件、BPM、实际音频长度及 GT 参考完整性。
 
-网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务和全部抽样组的 `pop909_eval_audio_all_tasks_*.zip`，同时保留四个单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，四个任务的所有抽样组便会同时加载。网页会在本地核对数据包版本、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
+网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务、全部抽样组、对应网页评测配置和音频的 `pop909_eval_audio_all_tasks_*.zip`，同时保留四个单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，四个任务的所有抽样组便会同时加载。网页会在本地核对配置、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
 
 ## 自助新增抽样组
 
@@ -64,7 +64,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 网页仍保持四个任务不变。新增内容显示为任务内的另一个命名抽样组，评测者可在任务标题右侧切换；导出的逐条记录会附带 `sampling_group_id` 和 `sampling_group_title`，任务模型平均分默认汇总该任务的全部抽样组。初始抽样的 `group_id` 保持不变，因此已有本机评分不会因启用此功能失效。
 
-管理员工具完成的是本地数据、网页源码与音频包更新。需要让线上私有站点显示新抽样组时，仍需发布这次网站更新；音频 ZIP 继续通过文件方式发给评测者，不会上传到站点。
+管理员工具会把最新任务与抽样组配置写入新音频包。完成本次兼容升级并发布网页后，今后新增抽样组只需把最新版“全部任务”总包发给评测者，不必再次发布网页；评测者打开原网址并选择新版任务文件夹即可。
 
 ## 冻结正式评测集
 
