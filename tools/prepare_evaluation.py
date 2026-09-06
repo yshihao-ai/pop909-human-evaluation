@@ -28,7 +28,7 @@ REPORT_FIELDS = [
     "audio_path", "original_bpm", "target_bpm", "prompt_length_bars",
     "continuation_length_bars", "final_length_bars", "original_duration_sec",
     "final_duration_sec", "source_time_signature", "tick_scale_factor",
-    "source_bars_4_4", "length_warning", "prompt_policy", "loudness_before",
+    "velocity_override", "source_bars_4_4", "length_warning", "prompt_policy", "loudness_before",
     "loudness_after", "status", "error_message",
 ]
 
@@ -260,6 +260,7 @@ def tempo_and_length(
     tick_scale: float = 1.0,
     target_numerator: int = 4,
     target_denominator: int = 4,
+    velocity_override: int | None = None,
 ):
     try:
         import mido
@@ -297,7 +298,10 @@ def tempo_and_length(
             if message.type in {"set_tempo", "time_signature", "end_of_track"}:
                 continue
             if target_ticks is None or scaled_absolute <= target_ticks:
-                kept.append((scaled_absolute, message.copy(time=0)))
+                processed_message = message.copy(time=0)
+                if velocity_override is not None and message.type == "note_on" and message.velocity > 0:
+                    processed_message = processed_message.copy(velocity=velocity_override)
+                kept.append((scaled_absolute, processed_message))
         if track_index == 0:
             kept.append((0, mido.MetaMessage("set_tempo", tempo=mido.bpm2tempo(target_bpm), time=0)))
             kept.append((0, mido.MetaMessage("time_signature", numerator=target_numerator, denominator=target_denominator, time=0)))
@@ -442,10 +446,19 @@ def preprocess_command(config: dict[str, Any], config_dir: Path) -> None:
             raw_audio = workspace / "audio_raw" / task_type / sample_id / f"{opaque}.wav"
             audio = workspace / "audio" / task_type / sample_id / f"{opaque}.wav"
             tick_scale = float(method.get("time_scale", 1.0))
+            velocity_override = method.get("velocity_override")
+            if velocity_override is not None:
+                if isinstance(velocity_override, bool) or not isinstance(velocity_override, int) or not 1 <= velocity_override <= 127:
+                    raise ValueError(f"velocity_override must be an integer from 1 to 127, got {velocity_override!r}")
+                row["velocity_override"] = velocity_override
             _, note_ticks = inspect_midi_timing(source)
             source_bars = note_ticks * tick_scale / (mido.MidiFile(source).ticks_per_beat * 4)
             row["source_bars_4_4"] = round(source_bars, 4)
-            row["prompt_policy"] = "original_source_preserved"
+            row["prompt_policy"] = (
+                "original_source_preserved"
+                if velocity_override is None
+                else f"original_timing_pitch_preserved;velocity_override={velocity_override}"
+            )
             if kind == "continuation":
                 target_bars = float(task.get("evaluation_length_bars", 32))
                 # Fixed-length exports can place the final note-off one beat early.
@@ -467,6 +480,7 @@ def preprocess_command(config: dict[str, Any], config_dir: Path) -> None:
             shutil.copy2(source, processed)
             original_bpm, original_duration, final_duration, _, _, source_signature, tick_scale = tempo_and_length(
                 processed, processed, target_bpm, target_bars, min_bars, tick_scale=tick_scale,
+                velocity_override=velocity_override,
             )
             if kind == "accompaniment":
                 row["final_length_bars"] = round(accompaniment_bars[sample_id], 3)

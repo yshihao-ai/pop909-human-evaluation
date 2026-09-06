@@ -9,7 +9,7 @@ from pathlib import Path
 import mido
 
 
-def note_events(path, scale=1, limit=None):
+def note_events(path, scale=1, limit=None, velocity_override=None):
     midi = mido.MidiFile(path)
     events = Counter()
     for track in midi.tracks:
@@ -18,7 +18,8 @@ def note_events(path, scale=1, limit=None):
             tick += msg.time
             scaled = round(tick * scale)
             if msg.type in {'note_on', 'note_off'} and (limit is None or scaled <= limit):
-                events[(scaled, msg.type, msg.channel, msg.note, msg.velocity)] += 1
+                velocity = velocity_override if velocity_override is not None and msg.type == 'note_on' and msg.velocity > 0 else msg.velocity
+                events[(scaled, msg.type, msg.channel, msg.note, velocity)] += 1
     return events
 
 
@@ -32,6 +33,10 @@ def main():
         rows = list(csv.DictReader(handle))
     errors = []
     warnings = []
+    method_velocity_overrides = {
+        (task['task_type'], method['name']): method.get('velocity_override')
+        for task in config['tasks'] for method in task['methods']
+    }
     for row in rows:
         label = '/'.join(row[x] for x in ('task_type','method','sample_id'))
         if row['status'] != 'ok':
@@ -39,10 +44,14 @@ def main():
             continue
         processed = mido.MidiFile(row['processed_midi_path'])
         limit = round(float(row['final_length_bars'])*4*processed.ticks_per_beat)
-        expected = note_events(row['source_path'],float(row['tick_scale_factor']),limit)
+        velocity_override = method_velocity_overrides.get((row['task_type'], row['method']))
+        reported_override = row.get('velocity_override', '')
+        if reported_override != ('' if velocity_override is None else str(velocity_override)):
+            errors.append(label+': velocity override report mismatch')
+        expected = note_events(row['source_path'],float(row['tick_scale_factor']),limit,velocity_override)
         actual = note_events(row['processed_midi_path'])
         if expected != actual:
-            errors.append(label+': original note events changed')
+            errors.append(label+': configured note events changed')
         tempos = {msg.tempo for track in processed.tracks for msg in track if msg.type=='set_tempo'}
         if tempos != {mido.bpm2tempo(config['audio']['target_bpm'])}:
             errors.append(label+': inconsistent tempo')
@@ -54,7 +63,9 @@ def main():
                 errors.append(label+': format mismatch')
         if row['length_warning']:
             warnings.append({'sample':label,'source_bars':row['source_bars_4_4'],'duration_sec':seconds})
-        if row['prompt_policy'] != 'original_source_preserved':
+        expected_policy = ('original_source_preserved' if velocity_override is None
+                           else f'original_timing_pitch_preserved;velocity_override={velocity_override}')
+        if row['prompt_policy'] != expected_policy:
             errors.append(label+': unexpected prompt policy')
     manifest_path = workspace/'web_data/evaluation_manifest.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf8'))
@@ -74,7 +85,7 @@ def main():
                 if sample and not (workspace/'web_audio'/sample['audio_url'].removeprefix('/audio/')).is_file():
                     errors.append(group['group_id']+': missing web audio')
     result = {'files':len(rows),'gt_reference_count':references,'rated_samples':rated,
-              'source_note_events_preserved':not errors,'short_source_warnings':warnings,'errors':errors}
+              'configured_note_events_match':not errors,'short_source_warnings':warnings,'errors':errors}
     output = workspace/'reports/verification.json'
     output.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf8')
     print(json.dumps(result,ensure_ascii=False,indent=2))

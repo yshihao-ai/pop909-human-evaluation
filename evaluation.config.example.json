@@ -101,7 +101,7 @@
       "task_type": "accompaniment",
       "task_kind": "accompaniment",
       "sample_set": "pop909",
-      "content_revision": "16bars",
+      "content_revision": "16bars-velocity80",
       "length_reference_midi_dir": "D:/accompaniment/DID/song_predict_full",
       "evaluation_length_bars": 16,
       "title": "伴奏生成",
@@ -116,8 +116,9 @@
       ],
       "methods": [
         { "name": "DID", "midi_dir": "D:/accompaniment/DID", "time_scale": 1 },
+        { "name": "DID-80", "midi_dir": "D:/accompaniment/DID", "time_scale": 1, "velocity_override": 80 },
         { "name": "GroundTruth", "midi_dir": "D:/accompaniment/GroundTruth", "time_scale": 1 },
-        { "name": "Method_A", "midi_dir": "D:/accompaniment/Method_A", "time_scale": 1 }
+        { "name": "Method_A", "midi_dir": "D:/accompaniment/Method_A", "time_scale": 1, "velocity_override": 80 }
       ]
     }
   ]
