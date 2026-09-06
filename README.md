@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-网页从 `public/data/evaluation_manifest.json` 读取任务、分组、音频路径与评分维度，并从 manifest 指向的 `.md` 文件读取规则。POP909、Pop1k7 短续写与 Pop1k7 长程生成分别建立可复现抽样集合；评测集仍处于冻结前的检查阶段。
+网页从 `public/data/evaluation_manifest.json` 读取任务、分组、音频路径与评分维度，并从 manifest 指向的 `.md` 文件读取规则。POP909、Pop1k7 短续写以及两个数据集的 96 小节长程生成分别建立可复现抽样集合；评测集仍处于冻结前的检查阶段。
 
 ## 可复现抽样
 
@@ -37,6 +37,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json
 
 ```powershell
 python tools/prepare_evaluation.py preprocess --config evaluation.config.json --task-type continuation_pop1k7_long
+python tools/prepare_evaluation.py preprocess --config evaluation.config.json --task-type continuation_pop909_long
 ```
 
 固定处理顺序为：原始 MIDI → 工作区副本 → 120 BPM → 短续写取 16 个 4/4 小节、长程生成取 96 个 4/4 小节、伴奏取 32 个 4/4 小节 → MS Basic SoundFont 渲染 → 整段 EBU R128 响度归一化与峰值保护 → 统一 192 kbps MP3。续写完整保留各方法自身的 4 小节 Prompt、音符间隔和起始相位，并保留其后生成内容；不拼接 GT，也不根据拍号元数据拉伸音符。当前全部方法 `time_scale=1`。在 120 BPM 下，16 小节为 32 秒，96 小节为 192 秒（3 分 12 秒）。
@@ -49,20 +50,20 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 全部预处理通过后，可运行 `python tools/prepare_evaluation.py web-manifest --config evaluation.config.json`，在 `evaluation_workspace/web_data` 生成网页配置。该命令遇到任何缺失或失败样本都会停止；存在长度警告时仅生成带提示的 development 配置。随后运行 `python tools/verify_evaluation.py --config evaluation.config.json` 验证源音符事件、BPM、实际音频长度及 GT 参考完整性。
 
-网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务、全部抽样组、对应网页评测配置和音频的 `pop909_eval_audio_all_tasks_*.zip`，同时保留四个单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，四个任务的所有抽样组便会同时加载。网页会在本地核对配置、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
+网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务、全部抽样组、对应网页评测配置和音频的 `pop909_eval_audio_all_tasks_*.zip`，同时保留各单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，五个任务的所有抽样组便会同时加载。网页会在本地核对配置、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
 
 ## 自助新增抽样组
 
 双击项目根目录的 `manage_sampling_groups.cmd`，即可打开“评测抽样组管理器”。在窗口中：
 
-1. 选择四个评测任务之一。
+1. 选择一个评测任务。
 2. 填写新抽样组名称。
 3. 按 MIDI 文件名搜索，并使用 `Ctrl` 或 `Shift` 多选需要的曲目。
 4. 点击“新增并自动构建”。
 
-工具只列出该任务所有参评方法共同存在、达到任务长度要求、且尚未用于该任务的 MIDI 名称。确认后会只重建所选任务的 MIDI/音频，随后更新网页 manifest、该任务的 192 kbps 本地音频包和“全部任务”总包，并验证网页构建；其他三个任务不会重新渲染。
+工具只列出该任务所有参评方法共同存在、达到任务长度要求、且尚未用于该任务的 MIDI 名称。确认后会只重建所选任务的 MIDI/音频，随后更新网页 manifest、该任务的 192 kbps 本地音频包和“全部任务”总包，并验证网页构建；其他任务不会重新渲染。
 
-网页仍保持四个任务不变。新增内容显示为任务内的另一个命名抽样组，评测者可在任务标题右侧切换；导出的逐条记录会附带 `sampling_group_id` 和 `sampling_group_title`，任务模型平均分默认汇总该任务的全部抽样组。初始抽样的 `group_id` 保持不变，因此已有本机评分不会因启用此功能失效。
+新增内容显示为任务内的另一个命名抽样组，评测者可在任务标题右侧切换；导出的逐条记录会附带 `sampling_group_id` 和 `sampling_group_title`，任务模型平均分默认汇总该任务的全部抽样组。初始抽样的 `group_id` 保持不变，因此已有本机评分不会因启用此功能失效。
 
 管理员工具会把最新任务与抽样组配置写入新音频包。完成本次兼容升级并发布网页后，今后新增抽样组只需把最新版“全部任务”总包发给评测者，不必再次发布网页；评测者打开原网址并选择新版任务文件夹即可。
 
