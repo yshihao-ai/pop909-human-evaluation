@@ -39,6 +39,11 @@
           "id": "primary",
           "title": "初始抽样",
           "sample_count": 10
+        },
+        {
+          "id": "batch_02",
+          "title": "抽样组 2",
+          "sample_count": 10
         }
       ],
       "groups": [
@@ -401,6 +406,366 @@
               "audio_url": "/audio/continuation/053/bcff9dc6e91a6708db3e2a12.mp3"
             }
           ]
+        },
+        {
+          "group_id": "continuation__batch_02__007",
+          "sample_id": "007",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/007/498080b12ab747b9d8a4e5e3.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/007/0416c623329f5b0dabd4a3f8.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/007/01f49a21b2e1adcdc4f80298.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/007/9c685c12c147334303a1c673.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/007/b3b981f21085082bf96ac799.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/007/a0814e6284c0eca909ff3ca9.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/007/385ab51baeb79d7bd3503a2b.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__031",
+          "sample_id": "031",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/031/db7fb90b6f0e6c8f12a48f5c.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/031/1483ad1e59465a655a215e64.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/031/df712896d13011359e98563b.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/031/e5c87e0c64c734867249e1f1.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/031/0ab78030f92f6cdcbcf4947e.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/031/23454fd1ec7fd55c71f49761.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/031/63f2ef76ef236228239706fa.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__038",
+          "sample_id": "038",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/038/48489bca186f2e9e5534e6fe.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/038/0f2dc62569640787465345f4.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/038/50fd06cb1c6d38d389d35b30.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/038/22a8d5f02fc6c2fb6162886c.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/038/307a4896b16096caed5f7b8d.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/038/97ab526d2e50eb0234b54384.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/038/2cc7ad49efebc42371b13f69.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__057",
+          "sample_id": "057",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/057/268ef8499ae6e981cca490da.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/057/acf9895b29cc80ae95e95213.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/057/461187941822f22aba7f5107.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/057/4f4cff017fd027fb373a6187.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/057/05ace57a1f3fc07051322d76.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/057/691f2897ddaaee6d9aee647e.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/057/1e872a2ce3084afafd1250f8.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__094",
+          "sample_id": "094",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/094/79bd1ddb5368fe7d27b5c83b.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/094/03d328d5adc074de328ecb7e.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/094/9d94af2fd0a30c8c21955b6b.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/094/2ff4bdcf88ea3feab073bf4a.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/094/10916710899252c8d37c9aa9.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/094/7fca85fe6af2dde7419bb8e4.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/094/11c47e86ef5735af34c59793.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__109",
+          "sample_id": "109",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/109/4de3e3ab3f37145abf3b4fb5.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/109/d0fc015fe2ce77ecfa3e0b30.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/109/1e1113e56b032e82db483f01.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/109/0cd424ba5d583679e6edd62e.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/109/33662d6bc8dfd7a4c2d6de54.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/109/93e5e3a9a6fdeefcacd499ea.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/109/1c4b06fd952a3436fa9217e9.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__118",
+          "sample_id": "118",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/118/8fafed47e7253fe543a95e21.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/118/3461e3722206f6fced2a3a54.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/118/e15bb76516673cf9003fa385.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/118/1f1ca57aed97dbac4ab75d8f.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/118/7482eb2ab34f34a92a19ceab.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/118/fbcba9461c78575cb8f2f86c.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/118/71fc390c1f897b2806657f3d.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__124",
+          "sample_id": "124",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/124/66fdd458cd1bcc9ea3c95302.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/124/2d6e11c1a97454224d08793a.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/124/8b74f39b1d53ff7625e7e3ee.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/124/63c19792b8d5ad26f4fecf0b.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/124/765c383cee9d0902502d093b.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/124/42ca95983ea5e9ea8a91c899.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/124/7efcb3dd00a7ec8bae89401b.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__125",
+          "sample_id": "125",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/125/13d4b51259c3c1bf2921ad02.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/125/eca9094d5e56036485e3d510.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/125/9bed35b5444e290b95cf1c30.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/125/ee9b23e0ac57ebb5a390830f.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/125/7b22ee630b1414bbc5dc6f2b.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/125/178e8ae6a89e198227ade216.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/125/6a0a79f03b12adee437ecb73.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation__batch_02__133",
+          "sample_id": "133",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "抽样组 2",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation/133/d655061e2030e232bee69cd2.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation/133/8a29bc1e2bdb96f71a667de6.mp3"
+            },
+            {
+              "model": "BEAT",
+              "audio_url": "/audio/continuation/133/d30975a8abe9801193b18a6e.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation/133/d25117fa4077b294d6d5d473.mp3"
+            },
+            {
+              "model": "MuseTok",
+              "audio_url": "/audio/continuation/133/32e0e487ef37878b53346b7e.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation/133/cd4c5aabc2f370a637289133.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation/133/4b532f4c5365cf5d7a9d5a5f.mp3"
+            }
+          ]
         }
       ]
     },
@@ -724,7 +1089,7 @@
     {
       "task_type": "continuation_pop1k7_long",
       "title": "Pop1k7 长程生成一致性",
-      "short_description": "完整试听 64 个 4/4 小节，评价长歌曲生成中前后风格、和声节奏、长程发展与后半段质量。",
+      "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中前后风格、和声节奏、长程发展与后半段质量。",
       "rules_markdown": "/rules/long-continuation.md",
       "metrics": [
         {
@@ -757,142 +1122,142 @@
       ],
       "groups": [
         {
-          "group_id": "continuation_pop1k7_long_1202",
-          "sample_id": "1202",
+          "group_id": "continuation_pop1k7_long__96bars__1056",
+          "sample_id": "1056",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/continuation_pop1k7_long/1202/6dee0699c04a8c11e417174c.mp3"
+            "audio_url": "/audio/continuation_pop1k7_long/1056/20190b6926b1d094f27984f7.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/continuation_pop1k7_long/1202/80a5a89cf1ec63697497a6ad.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1056/807f0e8d165a1c00e996edc3.mp3"
             },
             {
               "model": "CP",
-              "audio_url": "/audio/continuation_pop1k7_long/1202/36107d9970d25b2da9409436.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1056/b6e10094ac1ed3f3081207cb.mp3"
             },
             {
               "model": "NMT",
-              "audio_url": "/audio/continuation_pop1k7_long/1202/dc71debe235b8bc585a0e220.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1056/152022b8cc4f624a665edf2c.mp3"
             },
             {
               "model": "REMI",
-              "audio_url": "/audio/continuation_pop1k7_long/1202/3cbd35a9820f59b9e01ad6a1.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1056/f1b31a60fd6b88e9371d5c79.mp3"
             }
           ]
         },
         {
-          "group_id": "continuation_pop1k7_long_1052",
-          "sample_id": "1052",
+          "group_id": "continuation_pop1k7_long__96bars__1009",
+          "sample_id": "1009",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/continuation_pop1k7_long/1052/734fcce2e6f199f369e714ce.mp3"
+            "audio_url": "/audio/continuation_pop1k7_long/1009/72ba53f1fbcf1459f41aa82c.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/continuation_pop1k7_long/1052/ae4f0e902b8888f053f4a615.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1009/4309d3f7e746dbe3c85c4f10.mp3"
             },
             {
               "model": "CP",
-              "audio_url": "/audio/continuation_pop1k7_long/1052/0ce08a45d4ab8058ad71fe07.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1009/6856603a2dd873851377dc1e.mp3"
             },
             {
               "model": "NMT",
-              "audio_url": "/audio/continuation_pop1k7_long/1052/c52c03d932e290b2a2c13405.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1009/55707a774f1ff2694442a69d.mp3"
             },
             {
               "model": "REMI",
-              "audio_url": "/audio/continuation_pop1k7_long/1052/e295999002652261bfa26438.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1009/4bb38aa4343b0295126088cf.mp3"
             }
           ]
         },
         {
-          "group_id": "continuation_pop1k7_long_1482",
-          "sample_id": "1482",
-          "sampling_group_id": "primary",
-          "sampling_group_title": "初始抽样",
-          "reference": {
-            "model": "GroundTruth",
-            "audio_url": "/audio/continuation_pop1k7_long/1482/147b19673bcd87dec0f821ee.mp3"
-          },
-          "samples": [
-            {
-              "model": "DID",
-              "audio_url": "/audio/continuation_pop1k7_long/1482/9cd45858918bee351f9603d4.mp3"
-            },
-            {
-              "model": "CP",
-              "audio_url": "/audio/continuation_pop1k7_long/1482/89d9d6f6fb009dfe00080e57.mp3"
-            },
-            {
-              "model": "NMT",
-              "audio_url": "/audio/continuation_pop1k7_long/1482/2c230532314f2f5a5e7fa00c.mp3"
-            },
-            {
-              "model": "REMI",
-              "audio_url": "/audio/continuation_pop1k7_long/1482/bd6a45250731c4fd6a0150d9.mp3"
-            }
-          ]
-        },
-        {
-          "group_id": "continuation_pop1k7_long_142",
-          "sample_id": "142",
-          "sampling_group_id": "primary",
-          "sampling_group_title": "初始抽样",
-          "reference": {
-            "model": "GroundTruth",
-            "audio_url": "/audio/continuation_pop1k7_long/142/174440b7cabaae28dd05e1a2.mp3"
-          },
-          "samples": [
-            {
-              "model": "DID",
-              "audio_url": "/audio/continuation_pop1k7_long/142/acda777f879597ee5bc2ef56.mp3"
-            },
-            {
-              "model": "CP",
-              "audio_url": "/audio/continuation_pop1k7_long/142/e59ade4ddebac0146cdf907a.mp3"
-            },
-            {
-              "model": "NMT",
-              "audio_url": "/audio/continuation_pop1k7_long/142/f14ffde02e12ff5233168640.mp3"
-            },
-            {
-              "model": "REMI",
-              "audio_url": "/audio/continuation_pop1k7_long/142/3dc35ebcb79da894b93d8b9d.mp3"
-            }
-          ]
-        },
-        {
-          "group_id": "continuation_pop1k7_long_1401",
+          "group_id": "continuation_pop1k7_long__96bars__1401",
           "sample_id": "1401",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/continuation_pop1k7_long/1401/ad32c32ff6a205abbce1d1af.mp3"
+            "audio_url": "/audio/continuation_pop1k7_long/1401/f12282587080ed21ffb3ff54.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/continuation_pop1k7_long/1401/541d108ff5a526631259f03c.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1401/c7ecf71daddcd55820355184.mp3"
             },
             {
               "model": "CP",
-              "audio_url": "/audio/continuation_pop1k7_long/1401/8c95677fedac2d02cf363f3d.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1401/ab55ebc8c27c98f2661bb42d.mp3"
             },
             {
               "model": "NMT",
-              "audio_url": "/audio/continuation_pop1k7_long/1401/15d4e06edf6019f2ab51511f.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1401/4f4cabe51abc24ed074f0f94.mp3"
             },
             {
               "model": "REMI",
-              "audio_url": "/audio/continuation_pop1k7_long/1401/3b7195d1dc669b076657935c.mp3"
+              "audio_url": "/audio/continuation_pop1k7_long/1401/d416010ac880f1132c262664.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation_pop1k7_long__96bars__953",
+          "sample_id": "953",
+          "sampling_group_id": "primary",
+          "sampling_group_title": "初始抽样",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation_pop1k7_long/953/9a0b3a5b95d58c77964d8357.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation_pop1k7_long/953/a79eb009278310f78744480f.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation_pop1k7_long/953/c88120aa08f0f5d8d70a7334.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation_pop1k7_long/953/a8ede1f2e7cd8c32fd8bf6fc.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation_pop1k7_long/953/ec0b8955e8f07b2ed6f0811e.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "continuation_pop1k7_long__96bars__289",
+          "sample_id": "289",
+          "sampling_group_id": "primary",
+          "sampling_group_title": "初始抽样",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/continuation_pop1k7_long/289/52eb51941b7980428eebe425.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/continuation_pop1k7_long/289/9bce174fdd8fdae343ecb67c.mp3"
+            },
+            {
+              "model": "CP",
+              "audio_url": "/audio/continuation_pop1k7_long/289/bc326d9e77d6136b9484b02f.mp3"
+            },
+            {
+              "model": "NMT",
+              "audio_url": "/audio/continuation_pop1k7_long/289/d9858e027702025f8fd85fd4.mp3"
+            },
+            {
+              "model": "REMI",
+              "audio_url": "/audio/continuation_pop1k7_long/289/7c4ff4a9ac823b3f36040536.mp3"
             }
           ]
         }

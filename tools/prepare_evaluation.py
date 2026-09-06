@@ -522,6 +522,9 @@ def web_manifest_command(config: dict[str, Any], config_dir: Path) -> None:
         web_bitrate = task.get("web_bitrate", config["audio"].get("web_bitrate", "192k"))
         groups = []
         sampling_groups = task_sampling_groups(workspace, config, task)
+        content_revision = str(task.get("content_revision", "")).strip()
+        if content_revision and not re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,47}", content_revision):
+            raise ValueError(f"Invalid content_revision for {task['task_type']}: {content_revision!r}")
         for sampling_group in sampling_groups:
             for sample_id in sampling_group["sample_ids"]:
                 samples = []
@@ -551,11 +554,19 @@ def web_manifest_command(config: dict[str, Any], config_dir: Path) -> None:
                 reference = next((sample for sample in samples if sample['model'] == 'GroundTruth'), None)
                 if reference is None:
                     failures.append(f"{task['task_type']}/{sample_id}/missing_GT_reference")
-                group_id = (
-                    f"{task['task_type']}_{sample_id}"
-                    if sampling_group["id"] == "primary"
-                    else f"{task['task_type']}__{sampling_group['id']}__{sample_id}"
-                )
+                if content_revision:
+                    group_prefix = f"{task['task_type']}__{content_revision}"
+                    group_id = (
+                        f"{group_prefix}__{sample_id}"
+                        if sampling_group["id"] == "primary"
+                        else f"{group_prefix}__{sampling_group['id']}__{sample_id}"
+                    )
+                else:
+                    group_id = (
+                        f"{task['task_type']}_{sample_id}"
+                        if sampling_group["id"] == "primary"
+                        else f"{task['task_type']}__{sampling_group['id']}__{sample_id}"
+                    )
                 groups.append({
                     "group_id": group_id,
                     "sample_id": sample_id,

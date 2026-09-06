@@ -42,12 +42,13 @@
       "task_type": "continuation_pop1k7_long",
       "task_kind": "continuation",
       "sample_set": "pop1k7_long",
-      "sample_reference_midi_dir": "D:/long-continuation/DID",
+      "content_revision": "96bars",
+      "sample_reference_midi_dir": "D:/long-continuation/DID_96bars/song_predict",
       "seed": 42,
       "num_samples": 5,
-      "minimum_common_covered_bars_4_4": 64,
+      "minimum_common_covered_bars_4_4": 96,
       "title": "Pop1k7 长程生成一致性",
-      "short_description": "完整试听 64 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
+      "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
       "rules_markdown": "/rules/long-continuation.md",
       "metrics": [
         { "id": "style_consistency", "label": "前后风格一致性", "description": "前半段与后半段的整体风格是否一致。" },
@@ -56,12 +57,12 @@
         { "id": "latter_half_quality", "label": "后半段音乐质量", "description": "后半段是否出现明显质量退化。" }
       ],
       "prompt_length_bars": 4,
-      "evaluation_length_bars": 64,
+      "evaluation_length_bars": 96,
       "length_tolerance_bars": 1,
       "allow_short_preview": false,
       "methods": [
-        { "name": "DID", "midi_dir": "D:/long-continuation/DID", "time_scale": 1 },
-        { "name": "GroundTruth", "midi_dir": "D:/long-continuation/GroundTruth", "time_scale": 1 },
+        { "name": "DID", "midi_dir": "D:/long-continuation/DID_96bars/song_predict", "time_scale": 1 },
+        { "name": "GroundTruth", "midi_dir": "D:/long-continuation/DID_96bars/song_answer", "time_scale": 1 },
         { "name": "CP", "midi_dir": "D:/long-continuation/CP", "time_scale": 1 },
         { "name": "NMT", "midi_dir": "D:/long-continuation/NMT", "time_scale": 1 },
         { "name": "REMI", "midi_dir": "D:/long-continuation/REMI", "time_scale": 1 }

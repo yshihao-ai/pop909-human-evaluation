@@ -39,7 +39,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json
 python tools/prepare_evaluation.py preprocess --config evaluation.config.json --task-type continuation_pop1k7_long
 ```
 
-固定处理顺序为：原始 MIDI → 工作区副本 → 120 BPM → 短续写取 16 个 4/4 小节、长程生成取 64 个 4/4 小节、伴奏取 32 个 4/4 小节 → MS Basic SoundFont 渲染 → 整段 EBU R128 响度归一化与峰值保护 → 统一 192 kbps MP3。续写完整保留各方法自身的 4 小节 Prompt、音符间隔和起始相位，并保留其后生成内容；不拼接 GT，也不根据拍号元数据拉伸音符。当前全部方法 `time_scale=1`。在 120 BPM 下，16 小节为 32 秒，64 小节为 128 秒。
+固定处理顺序为：原始 MIDI → 工作区副本 → 120 BPM → 短续写取 16 个 4/4 小节、长程生成取 96 个 4/4 小节、伴奏取 32 个 4/4 小节 → MS Basic SoundFont 渲染 → 整段 EBU R128 响度归一化与峰值保护 → 统一 192 kbps MP3。续写完整保留各方法自身的 4 小节 Prompt、音符间隔和起始相位，并保留其后生成内容；不拼接 GT，也不根据拍号元数据拉伸音符。当前全部方法 `time_scale=1`。在 120 BPM 下，16 小节为 32 秒，96 小节为 192 秒（3 分 12 秒）。
 
 续写源文件明显不足 16 小节时，默认以 `insufficient_length` 拒绝处理；检查阶段可显式开启 `allow_short_preview`，保留真实较短时长并写入 `length_warning`，页面提示不能用于正式评测。当前 BEAT 文件约 64 拍（32 个 2/4 小节、16 个 4/4 小节），正好满足本次目标；MuseTok 部分文件约 32 拍，仍只有 8 个 4/4 小节。不会通过倍速拉伸、循环或拼接补足长度。伴奏保持 32 个 4/4 小节。
 
