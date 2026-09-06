@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans-app); --font-mono: var(--font-geist-mono);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --radius-sm: .45rem; --radius-md: .65rem; --radius-lg: .8rem; --radius-xl: 1rem; --radius-2xl: 1.25rem;
+}
+
+:root {
+  --background: oklch(.975 .006 255); --foreground: oklch(.22 .035 258);
+  --card: oklch(1 0 0); --card-foreground: oklch(.22 .035 258);
+  --primary: oklch(.47 .16 264); --primary-foreground: oklch(.99 .005 250);
+  --secondary: oklch(.94 .018 258); --secondary-foreground: oklch(.29 .06 264);
+  --muted: oklch(.945 .01 255); --muted-foreground: oklch(.5 .03 258);
+  --border: oklch(.89 .018 257); --input: oklch(.89 .018 257); --ring: oklch(.58 .15 264);
+  --destructive: oklch(.58 .21 28);
+  --font-sans-app: var(--font-geist-sans), "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+.dark {
+  --background: oklch(.18 .025 258); --foreground: oklch(.94 .01 255);
+  --card: oklch(.225 .03 258); --card-foreground: oklch(.94 .01 255);
+  --primary: oklch(.7 .14 264); --primary-foreground: oklch(.16 .03 258);
+  --secondary: oklch(.28 .035 258); --secondary-foreground: oklch(.94 .01 255);
+  --muted: oklch(.28 .025 258); --muted-foreground: oklch(.72 .025 255);
+  --border: oklch(1 0 0 / 13%); --input: oklch(1 0 0 / 18%); --ring: oklch(.68 .13 264);
+  --destructive: oklch(.69 .18 24);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+  html { @apply font-sans; }
+  button, label { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .eyebrow { @apply text-[.72rem] font-bold uppercase tracking-[.16em] text-muted-foreground; }
+  .task-link { @apply grid w-full grid-cols-[2rem_1fr_auto] items-center gap-2 rounded-xl px-3 py-3 text-left text-sm text-muted-foreground transition hover:bg-card hover:text-foreground; }
+  .task-link > span:first-child { @apply font-mono text-xs; }
+  .task-link small { @apply text-xs; }
+  .task-link-active { @apply bg-primary text-primary-foreground shadow-sm hover:bg-primary hover:text-primary-foreground; }
+  .sample-card { @apply overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgb(15_23_42/3%),0_12px_36px_rgb(15_23_42/5%)]; }
+  .sample-head { @apply flex flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-6; }
+  .sample-head > div { @apply flex items-center gap-3; }
+  .sample-index { @apply grid size-11 place-items-center rounded-xl bg-primary font-mono text-lg font-bold text-primary-foreground; }
+  .metric-row { @apply grid gap-4 px-5 py-5 sm:px-6 md:grid-cols-[minmax(0,1fr)_260px] md:items-center; }
+  .score-grid { @apply grid grid-cols-5 gap-2; }
+  .score-choice { @apply grid h-11 cursor-pointer place-items-center rounded-xl border border-border bg-background font-mono text-sm font-bold text-muted-foreground transition hover:border-primary/50 hover:text-primary has-[[data-checked]]:border-primary has-[[data-checked]]:bg-primary has-[[data-checked]]:text-primary-foreground; }
+  .task-tab { @apply grid min-h-12 w-full grid-cols-[2rem_minmax(0,1fr)_auto] items-center justify-start gap-2 rounded-xl px-3 py-2 text-left text-sm text-muted-foreground data-active:bg-primary data-active:text-primary-foreground data-active:shadow-sm; height: auto !important; white-space: normal !important; }
+  .task-tab small { @apply text-xs; }
+  .export-button { @apply min-h-9 w-full px-3 py-2 text-center leading-5; height: auto !important; white-space: normal !important; }
+  .audio-shell { @apply flex min-w-0 items-center gap-2; }
+  .audio-shell audio { @apply hidden; }
+  .audio-range { @apply h-2 min-w-20 flex-1 cursor-pointer appearance-none rounded-full bg-border accent-primary disabled:cursor-not-allowed disabled:opacity-40; }
+  .audio-range::-webkit-slider-thumb { @apply size-4 appearance-none rounded-full border-2 border-primary bg-card shadow-sm; }
+  .status-pill { @apply inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground; }
+  .status-pill svg { @apply size-3.5; }
+  .status-done { @apply border-emerald-200 bg-emerald-50 text-emerald-700; }
+  .group-link { @apply flex w-full items-center justify-between rounded-lg px-2 py-2 text-left text-sm text-muted-foreground transition hover:bg-muted hover:text-foreground; }
+  .group-link svg { @apply size-3.5; }
+  .group-link-active { @apply bg-secondary font-medium text-primary; }
+  .rules-copy { @apply space-y-3 border-t border-border pt-4 text-base leading-7 text-foreground; }
+  .rules-copy h2 { @apply text-xl font-semibold tracking-tight; }
+  .rules-copy h3 { @apply mt-5 text-lg font-semibold; }
+  .rule-bullet { @apply relative pl-5 before:absolute before:left-1 before:top-[.72rem] before:size-1.5 before:rounded-full before:bg-primary; }
+  .notice { @apply fixed bottom-5 right-5 z-50 flex max-w-sm items-start gap-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950 shadow-xl; }
+  .notice > div { @apply flex flex-col gap-1; }
+  .notice span { @apply text-xs leading-5 opacity-80; }
+  .notice button { @apply -mr-1 text-lg leading-none opacity-60 hover:opacity-100; }
+  .notice-success { @apply border-emerald-300 bg-emerald-50 text-emerald-950; }
+}
+
+@media (max-width: 1023px) {
+  .task-tab { @apply grid-cols-[2rem_1fr_auto]; }
+}
+
+@media (max-width: 560px) {
+  .audio-shell { @apply flex-wrap; }
+  .audio-range { @apply order-3 w-full basis-full; }
+  .metric-row { @apply px-4; }
+}

@@ -1,0 +1,88 @@
+{
+  "study_id": "pop909_subjective_evaluation",
+  "version": "1.0.0-dev",
+  "show_model_names": false,
+  "allow_model_reveal_after_scoring": false,
+  "evaluation_workspace": "./evaluation_workspace",
+  "reference_midi_dir": "D:/replace-with-read-only-DID-midi-directory",
+  "seed": 42,
+  "num_samples": 10,
+  "audio": {
+    "target_bpm": 120,
+    "target_lufs": -16,
+    "sample_rate": 44100,
+    "render_workers": 4,
+    "web_bitrate": "192k",
+    "soundfont": "D:/replace-with-shared-soundfont/MS_Basic.sf3",
+    "fluidsynth": "fluidsynth",
+    "ffmpeg": "ffmpeg"
+  },
+  "tasks": [
+    {
+      "task_type": "continuation",
+      "task_kind": "continuation",
+      "sample_set": "pop909",
+      "title": "音乐续写",
+      "short_description": "完整试听 Prompt 与 Continuation，评价生成部分和前文的关系。",
+      "rules_markdown": "/rules/continuation.md",
+      "metrics": [
+        { "id": "replace_metric_1", "label": "请替换", "description": "直接填入正式规则文件中定义的维度。" }
+      ],
+      "prompt_length_bars": 4,
+      "evaluation_length_bars": 16,
+      "length_tolerance_bars": 0.25,
+      "allow_short_preview": false,
+      "methods": [
+        { "name": "DID", "midi_dir": "D:/continuation/DID", "time_scale": 1 },
+        { "name": "GroundTruth", "midi_dir": "D:/continuation/GroundTruth", "time_scale": 1 },
+        { "name": "Method_A", "midi_dir": "D:/continuation/Method_A", "time_scale": 1 }
+      ]
+    },
+    {
+      "task_type": "continuation_pop1k7_long",
+      "task_kind": "continuation",
+      "sample_set": "pop1k7_long",
+      "sample_reference_midi_dir": "D:/long-continuation/DID",
+      "seed": 42,
+      "num_samples": 5,
+      "minimum_common_covered_bars_4_4": 64,
+      "title": "Pop1k7 长程生成一致性",
+      "short_description": "完整试听 64 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
+      "rules_markdown": "/rules/long-continuation.md",
+      "metrics": [
+        { "id": "style_consistency", "label": "前后风格一致性", "description": "前半段与后半段的整体风格是否一致。" },
+        { "id": "harmony_rhythm_stability", "label": "和声与节奏稳定性", "description": "和声、节拍与律动是否稳定。" },
+        { "id": "long_term_development", "label": "长程发展合理性", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
+        { "id": "latter_half_quality", "label": "后半段音乐质量", "description": "后半段是否出现明显质量退化。" }
+      ],
+      "prompt_length_bars": 4,
+      "evaluation_length_bars": 64,
+      "length_tolerance_bars": 1,
+      "allow_short_preview": false,
+      "methods": [
+        { "name": "DID", "midi_dir": "D:/long-continuation/DID", "time_scale": 1 },
+        { "name": "GroundTruth", "midi_dir": "D:/long-continuation/GroundTruth", "time_scale": 1 },
+        { "name": "CP", "midi_dir": "D:/long-continuation/CP", "time_scale": 1 },
+        { "name": "NMT", "midi_dir": "D:/long-continuation/NMT", "time_scale": 1 },
+        { "name": "REMI", "midi_dir": "D:/long-continuation/REMI", "time_scale": 1 }
+      ]
+    },
+    {
+      "task_type": "accompaniment",
+      "task_kind": "accompaniment",
+      "sample_set": "pop909",
+      "length_reference_midi_dir": "D:/accompaniment/DID/song_predict_full",
+      "title": "伴奏生成",
+      "short_description": "完整试听旋律与伴奏，评价二者的适配程度。",
+      "rules_markdown": "/rules/accompaniment.md",
+      "metrics": [
+        { "id": "replace_metric_1", "label": "请替换", "description": "直接填入正式规则文件中定义的维度。" }
+      ],
+      "methods": [
+        { "name": "DID", "midi_dir": "D:/accompaniment/DID", "time_scale": 1 },
+        { "name": "GroundTruth", "midi_dir": "D:/accompaniment/GroundTruth", "time_scale": 1 },
+        { "name": "Method_A", "midi_dir": "D:/accompaniment/Method_A", "time_scale": 1 }
+      ]
+    }
+  ]
+}
