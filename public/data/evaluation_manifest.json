@@ -2218,32 +2218,32 @@
     {
       "task_type": "accompaniment",
       "title": "POP909 伴奏生成",
-      "short_description": "完整试听旋律与生成伴奏，评价协调性、和声、稳定性、正确性与整体质量。",
+      "short_description": "完整试听 16 个 4/4 小节的旋律与生成伴奏，评价旋律伴奏协调性、和声合理性、节奏一致性、音乐正确性与整体质量。",
       "rules_markdown": "/rules/accompaniment.md",
       "metrics": [
         {
           "id": "coherence",
-          "label": "Coherence",
+          "label": "旋律与伴奏协调性",
           "description": "伴奏与给定旋律是否协调，能否自然、合理地配合并支持旋律。"
         },
         {
           "id": "harmony",
-          "label": "Harmony",
+          "label": "和声合理性",
           "description": "伴奏是否符合给定和弦进行，是否存在明显的和声音高冲突。"
         },
         {
           "id": "consistency",
-          "label": "Consistency",
-          "description": "伴奏在节奏、伴奏型和整体音乐组织上是否稳定且变化自然。"
+          "label": "节奏一致性与伴奏型稳定性",
+          "description": "伴奏的节奏、速度感和律动是否一致，伴奏型与整体音乐组织是否稳定且变化自然。"
         },
         {
           "id": "correctness",
-          "label": "Correctness",
+          "label": "音乐正确性",
           "description": "是否存在不合理的不协和音、异常节奏、不自然乐句等明显音乐错误。"
         },
         {
           "id": "overall",
-          "label": "Overall",
+          "label": "整体质量",
           "description": "综合评价伴奏的自然度、流畅性、协调性与对当前旋律的适合程度。"
         }
       ],
@@ -2252,326 +2252,395 @@
           "id": "primary",
           "title": "初始抽样",
           "sample_count": 10
+        },
+        {
+          "id": "batch_02",
+          "title": "指定样本组",
+          "sample_count": 2
         }
       ],
       "groups": [
         {
-          "group_id": "accompaniment_145",
+          "group_id": "accompaniment__16bars__145",
           "sample_id": "145",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/145/3b58da9b80cffab962fd0181.mp3"
+            "audio_url": "/audio/accompaniment/145/960ddadc4e41d01179f5af9f.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/145/eb0c0b3e895e49c7dd2a491a.mp3"
+              "audio_url": "/audio/accompaniment/145/901f26d0392596828c11e228.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/145/ba1ab757661269afd74ad274.mp3"
+              "audio_url": "/audio/accompaniment/145/1f9d12014ab2f0addc628b86.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/145/1473a44aa191cfc103760dfa.mp3"
+              "audio_url": "/audio/accompaniment/145/948e9a81671503d5f52de9e0.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/145/cf9baa1681777ce4031bc700.mp3"
+              "audio_url": "/audio/accompaniment/145/6ee8dc51f4b443bec17ce6e6.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/145/70f7aa8768c9ba397c87ca1d.mp3"
+              "audio_url": "/audio/accompaniment/145/24d6405e19adfefbd0634b7b.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_041",
+          "group_id": "accompaniment__16bars__041",
           "sample_id": "041",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/041/90dbe5b86d2b57bdd6a7f23b.mp3"
+            "audio_url": "/audio/accompaniment/041/dfb649fb3f1939d6402d001c.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/041/7eeaf27754a1e91d5d655eb8.mp3"
+              "audio_url": "/audio/accompaniment/041/255e8bfb4f6d9a574cea72c5.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/041/07f0758ea5e9518caeb9308d.mp3"
+              "audio_url": "/audio/accompaniment/041/1dc6c88c0a46dea44fc66696.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/041/849360c94b9001bac0f045ab.mp3"
+              "audio_url": "/audio/accompaniment/041/fde1665e7ee4093be22bc662.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/041/74b54e07ef75a36644c80e60.mp3"
+              "audio_url": "/audio/accompaniment/041/9116256749ea9f765024b88e.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/041/f7fd2b958baae5cb5c934d5a.mp3"
+              "audio_url": "/audio/accompaniment/041/faa1f8d16e8c595311f05217.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_450",
+          "group_id": "accompaniment__16bars__450",
           "sample_id": "450",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/450/b7b96999d86adc5838830958.mp3"
+            "audio_url": "/audio/accompaniment/450/40b14b8e0dd0ef899eda122c.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/450/e62a553057d5966e143de260.mp3"
+              "audio_url": "/audio/accompaniment/450/535f29290e5f57f3d4f9e330.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/450/eda607bf4511a6ceabe30d6d.mp3"
+              "audio_url": "/audio/accompaniment/450/91755b3095b0e976863a4896.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/450/fb3ea750d0fc35b485a494c4.mp3"
+              "audio_url": "/audio/accompaniment/450/808beba573d08297e5882482.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/450/0110ccc5b828a269d201c006.mp3"
+              "audio_url": "/audio/accompaniment/450/93a6f3e7614c2b1f29671d43.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/450/45a2b5b5df9dc9492d0ef8f4.mp3"
+              "audio_url": "/audio/accompaniment/450/3bd7d8fda55ff9d8f9c87fbd.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_375",
+          "group_id": "accompaniment__16bars__375",
           "sample_id": "375",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/375/623aeb27e51db7808c78cb7c.mp3"
+            "audio_url": "/audio/accompaniment/375/082e3b63e9c067724ee9773a.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/375/9b094c282bd3b10b2f854f4a.mp3"
+              "audio_url": "/audio/accompaniment/375/f8552df9a78045d6671c100e.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/375/cecd89fb16f798c370f73456.mp3"
+              "audio_url": "/audio/accompaniment/375/8ac58cc2db7c3b0720994c5d.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/375/3b3529f3b35a5322e7cd547e.mp3"
+              "audio_url": "/audio/accompaniment/375/dd9f512bac2ae02b0844b3ea.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/375/149f744f4b4f731d7538d178.mp3"
+              "audio_url": "/audio/accompaniment/375/f5e4026a863f917d590571c0.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/375/d5f25b5cc1440c8c886a8ded.mp3"
+              "audio_url": "/audio/accompaniment/375/4fb92a4d0c5a010e0be985dc.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_346",
+          "group_id": "accompaniment__16bars__346",
           "sample_id": "346",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/346/cb883fed281f574d236b4e99.mp3"
+            "audio_url": "/audio/accompaniment/346/31fa63ea3e1c1bb2b910c71a.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/346/d698431eb38b5fe0e2ce7bf6.mp3"
+              "audio_url": "/audio/accompaniment/346/b69ef323f8e9dd7ebcf5f0e3.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/346/6bfdbfdcf016fc987e923731.mp3"
+              "audio_url": "/audio/accompaniment/346/d48159ce5dc0e9faf6631f0f.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/346/b05bad074b8b4b739e409451.mp3"
+              "audio_url": "/audio/accompaniment/346/0941e9f77121d541a6f79c41.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/346/648d67d799a8bfa403e59e62.mp3"
+              "audio_url": "/audio/accompaniment/346/b03cd1a3786054e2345ddea6.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/346/97cc42153c625e51f7cae159.mp3"
+              "audio_url": "/audio/accompaniment/346/9350806c9bedbc71287d0959.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_216",
+          "group_id": "accompaniment__16bars__216",
           "sample_id": "216",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/216/4e0542a86eb8aaf1b1d57ccc.mp3"
+            "audio_url": "/audio/accompaniment/216/b9efc0d4414781b48cd98c47.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/216/fc8142e8c2d21dd9aed0da3f.mp3"
+              "audio_url": "/audio/accompaniment/216/796512f0594cf572c5cfdc68.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/216/89aa34f6495cdb2a2ad1c406.mp3"
+              "audio_url": "/audio/accompaniment/216/d7d5b1a877a61f08553511bf.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/216/dac23fa3bb2faf6da5049e3c.mp3"
+              "audio_url": "/audio/accompaniment/216/aa322ddcb8fe6d129a53a868.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/216/dbf2d77f67edff255b504e9a.mp3"
+              "audio_url": "/audio/accompaniment/216/691d46c2cb4450b286c97550.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/216/cac68eba8e15e2642f1cad1c.mp3"
+              "audio_url": "/audio/accompaniment/216/6fabbfd10b04fda22d8ccab0.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_134",
+          "group_id": "accompaniment__16bars__134",
           "sample_id": "134",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/134/a348f641c22ac91ffb980ae3.mp3"
+            "audio_url": "/audio/accompaniment/134/98a3f6068d9496b77b06e312.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/134/38bc3ffea78edcc564b2d722.mp3"
+              "audio_url": "/audio/accompaniment/134/e14e920c09cdc732f3c2bc0c.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/134/173b969bb174c8ba65bd2bbd.mp3"
+              "audio_url": "/audio/accompaniment/134/53bd1db1b8df9cd9bcd5b857.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/134/41fa741058169a485931b3d2.mp3"
+              "audio_url": "/audio/accompaniment/134/14fdb41b1f886f1f57f19da2.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/134/44f88eeac4350bdf68bfe424.mp3"
+              "audio_url": "/audio/accompaniment/134/b2f8c3351c0a8077a38e5315.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/134/bfd5105c6a8952ab8aa6bdc6.mp3"
+              "audio_url": "/audio/accompaniment/134/49c0b36abf53b3d8982bc27f.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_129",
+          "group_id": "accompaniment__16bars__129",
           "sample_id": "129",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/129/9a0e9571fe034b4e0afd42ba.mp3"
+            "audio_url": "/audio/accompaniment/129/329d0c7947787c3304b1fe42.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/129/bcf56a2f0de746447cd119fb.mp3"
+              "audio_url": "/audio/accompaniment/129/c189108909469fb0408c1ca6.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/129/c7fff8bd1c90793e50fb3330.mp3"
+              "audio_url": "/audio/accompaniment/129/c304d22ec9716e5052bfc10f.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/129/1a04f84822706ffe2ade5489.mp3"
+              "audio_url": "/audio/accompaniment/129/e6fd47fd64f7a9ff8fecec41.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/129/b418afea163097d93f94f634.mp3"
+              "audio_url": "/audio/accompaniment/129/dfe39f289aa6a94c632652d1.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/129/d6ebeeded631b28877d068c9.mp3"
+              "audio_url": "/audio/accompaniment/129/34c8dac2a618373475cefdc1.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_722",
+          "group_id": "accompaniment__16bars__722",
           "sample_id": "722",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/722/a8eb8ca4d84d8b343a3621ee.mp3"
+            "audio_url": "/audio/accompaniment/722/7216d6dd80dc34a640dc508b.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/722/004971876a8e0eeea894a695.mp3"
+              "audio_url": "/audio/accompaniment/722/4cdbe864d0ecb0f7101efcf7.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/722/4623aa10eb8a3e9ad9a5b6f5.mp3"
+              "audio_url": "/audio/accompaniment/722/a1aaf8c13e33ea0b6e0faef9.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/722/866b21f9982a0d9c1d2ff41f.mp3"
+              "audio_url": "/audio/accompaniment/722/c2afc9b515ec8f712760eff1.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/722/549792ac6656f25c5c9a88fa.mp3"
+              "audio_url": "/audio/accompaniment/722/4239edf20874eecf034288a6.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/722/cf1a2ef1b68a80561f9cac22.mp3"
+              "audio_url": "/audio/accompaniment/722/a1a6dbc046d3df6278955f7a.mp3"
             }
           ]
         },
         {
-          "group_id": "accompaniment_053",
+          "group_id": "accompaniment__16bars__053",
           "sample_id": "053",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
           "reference": {
             "model": "GroundTruth",
-            "audio_url": "/audio/accompaniment/053/6bf1b2fe3095686d03736018.mp3"
+            "audio_url": "/audio/accompaniment/053/478032de4b8e0575dc47a2a9.mp3"
           },
           "samples": [
             {
               "model": "DID",
-              "audio_url": "/audio/accompaniment/053/4733d3110bbcd68b4089df4f.mp3"
+              "audio_url": "/audio/accompaniment/053/a13e78ac089e351c04c896f1.mp3"
             },
             {
               "model": "D3PIA",
-              "audio_url": "/audio/accompaniment/053/a70fd15722c0e4597a909e08.mp3"
+              "audio_url": "/audio/accompaniment/053/bdf2d5311447a6da94812aa7.mp3"
             },
             {
               "model": "FGG",
-              "audio_url": "/audio/accompaniment/053/75396b88f165720d1fbf7021.mp3"
+              "audio_url": "/audio/accompaniment/053/f25d8ee76d73ccdd3d678fae.mp3"
             },
             {
               "model": "Polyffusion",
-              "audio_url": "/audio/accompaniment/053/9c5263e147b3ae37f84393a7.mp3"
+              "audio_url": "/audio/accompaniment/053/dad0fcad93dd2c73a50dc1ba.mp3"
             },
             {
               "model": "WholeSongGen",
-              "audio_url": "/audio/accompaniment/053/7b8666d15900cbc2ab9db736.mp3"
+              "audio_url": "/audio/accompaniment/053/4094133f3e4ceb50ab15a454.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "accompaniment__16bars__batch_02__283",
+          "sample_id": "283",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "指定样本组",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/accompaniment/283/aa48c5fa67c16d6a83ba06dc.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/accompaniment/283/bacb53646c1adada61827130.mp3"
+            },
+            {
+              "model": "D3PIA",
+              "audio_url": "/audio/accompaniment/283/1490e19d618e82bbff97110a.mp3"
+            },
+            {
+              "model": "FGG",
+              "audio_url": "/audio/accompaniment/283/f21c45919fa3fe07f92d74b6.mp3"
+            },
+            {
+              "model": "Polyffusion",
+              "audio_url": "/audio/accompaniment/283/bbaa301261f7e712a42a01f3.mp3"
+            },
+            {
+              "model": "WholeSongGen",
+              "audio_url": "/audio/accompaniment/283/bd33dcae079a1eb7e28ca957.mp3"
+            }
+          ]
+        },
+        {
+          "group_id": "accompaniment__16bars__batch_02__290",
+          "sample_id": "290",
+          "sampling_group_id": "batch_02",
+          "sampling_group_title": "指定样本组",
+          "reference": {
+            "model": "GroundTruth",
+            "audio_url": "/audio/accompaniment/290/4eb5e71b25c3ddab09fc9a5b.mp3"
+          },
+          "samples": [
+            {
+              "model": "DID",
+              "audio_url": "/audio/accompaniment/290/90d299247be18595456afb69.mp3"
+            },
+            {
+              "model": "D3PIA",
+              "audio_url": "/audio/accompaniment/290/d506487dc3476fa39cb3f8ed.mp3"
+            },
+            {
+              "model": "FGG",
+              "audio_url": "/audio/accompaniment/290/e1e22f9de6c453a4b9d78c58.mp3"
+            },
+            {
+              "model": "Polyffusion",
+              "audio_url": "/audio/accompaniment/290/d0fd1f891f0546d0c2b3fd8c.mp3"
+            },
+            {
+              "model": "WholeSongGen",
+              "audio_url": "/audio/accompaniment/290/f8de67c460a1f70732ae2dba.mp3"
             }
           ]
         }

@@ -101,12 +101,18 @@
       "task_type": "accompaniment",
       "task_kind": "accompaniment",
       "sample_set": "pop909",
+      "content_revision": "16bars",
       "length_reference_midi_dir": "D:/accompaniment/DID/song_predict_full",
+      "evaluation_length_bars": 16,
       "title": "伴奏生成",
-      "short_description": "完整试听旋律与伴奏，评价二者的适配程度。",
+      "short_description": "完整试听 16 个 4/4 小节的旋律与伴奏，评价二者的适配程度。",
       "rules_markdown": "/rules/accompaniment.md",
       "metrics": [
-        { "id": "replace_metric_1", "label": "请替换", "description": "直接填入正式规则文件中定义的维度。" }
+        { "id": "coherence", "label": "旋律与伴奏协调性", "description": "伴奏是否自然、合理地配合并支持旋律。" },
+        { "id": "harmony", "label": "和声合理性", "description": "和声是否自然且符合给定和弦进行。" },
+        { "id": "consistency", "label": "节奏一致性与伴奏型稳定性", "description": "节奏、速度感、律动和伴奏型是否一致、稳定。" },
+        { "id": "correctness", "label": "音乐正确性", "description": "是否存在明显的不协和、异常节奏或不自然乐句。" },
+        { "id": "overall", "label": "整体质量", "description": "综合评价自然度、流畅性、协调性与适配程度。" }
       ],
       "methods": [
         { "name": "DID", "midi_dir": "D:/accompaniment/DID", "time_scale": 1 },
