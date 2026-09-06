@@ -15,7 +15,7 @@
       "metrics": [
         {
           "id": "coherence",
-          "label": "Coherence",
+          "label": "连贯性（Coherence）",
           "description": "续写与给定 4 小节 Prompt 的衔接是否自然，前后音乐风格是否一致。"
         },
         {
@@ -25,12 +25,12 @@
         },
         {
           "id": "harmony",
-          "label": "Harmony",
+          "label": "和声合理性（Harmony）",
           "description": "续写部分的音高与和声是否自然协调，是否存在冲突或异常音程。"
         },
         {
           "id": "overall",
-          "label": "Overall",
+          "label": "整体质量（Overall Quality）",
           "description": "综合评价续写的自然度、流畅性、协调性、音乐性与整体听感。"
         }
       ],
@@ -1142,7 +1142,7 @@
       "metrics": [
         {
           "id": "coherence",
-          "label": "Coherence",
+          "label": "连贯性（Coherence）",
           "description": "续写与给定 4 小节 Prompt 的衔接是否自然，前后音乐风格是否一致。"
         },
         {
@@ -1152,12 +1152,12 @@
         },
         {
           "id": "harmony",
-          "label": "Harmony",
+          "label": "和声合理性（Harmony）",
           "description": "续写部分的音高与和声是否自然协调，是否存在冲突或异常音程。"
         },
         {
           "id": "overall",
-          "label": "Overall",
+          "label": "整体质量（Overall Quality）",
           "description": "综合评价续写的自然度、流畅性、协调性、音乐性与整体听感。"
         }
       ],
@@ -1744,22 +1744,22 @@
       "metrics": [
         {
           "id": "style_consistency",
-          "label": "前后风格一致性",
+          "label": "前后风格一致性（Style Consistency）",
           "description": "完整作品前半段与后半段在曲风、情绪、织体和音乐语言上是否保持一致。"
         },
         {
           "id": "harmony_rhythm_stability",
-          "label": "节奏一致性与和声稳定性",
+          "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）",
           "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
         },
         {
           "id": "long_term_development",
-          "label": "长程发展合理性",
+          "label": "长程发展合理性（Long-Term Development）",
           "description": "作品是否具有合理的段落变化、张弛和发展，同时避免机械重复或无逻辑跳变。"
         },
         {
           "id": "latter_half_quality",
-          "label": "后半段音乐质量",
+          "label": "后半段音乐质量（Latter-Half Musical Quality）",
           "description": "后半段本身是否自然、完整，是否出现空轨、音符堆积、节奏失控或明显质量退化。"
         }
       ],
@@ -2066,22 +2066,22 @@
       "metrics": [
         {
           "id": "style_consistency",
-          "label": "前后风格一致性",
+          "label": "前后风格一致性（Style Consistency）",
           "description": "完整作品前半段与后半段在曲风、情绪、织体和音乐语言上是否保持一致。"
         },
         {
           "id": "harmony_rhythm_stability",
-          "label": "节奏一致性与和声稳定性",
+          "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）",
           "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
         },
         {
           "id": "long_term_development",
-          "label": "长程发展合理性",
+          "label": "长程发展合理性（Long-Term Development）",
           "description": "作品是否具有合理的段落变化、张弛和发展，同时避免机械重复或无逻辑跳变。"
         },
         {
           "id": "latter_half_quality",
-          "label": "后半段音乐质量",
+          "label": "后半段音乐质量（Latter-Half Musical Quality）",
           "description": "后半段本身是否自然、完整，是否出现空轨、音符堆积、节奏失控或明显质量退化。"
         }
       ],
@@ -2223,27 +2223,27 @@
       "metrics": [
         {
           "id": "coherence",
-          "label": "旋律与伴奏协调性",
+          "label": "旋律与伴奏协调性（Melody–Accompaniment Coherence）",
           "description": "伴奏与给定旋律是否协调，能否自然、合理地配合并支持旋律。"
         },
         {
           "id": "harmony",
-          "label": "和声合理性",
+          "label": "和声合理性（Harmonic Appropriateness）",
           "description": "伴奏是否符合给定和弦进行，是否存在明显的和声音高冲突。"
         },
         {
           "id": "consistency",
-          "label": "节奏一致性与伴奏型稳定性",
+          "label": "节奏一致性与伴奏型稳定性（Rhythmic Consistency and Accompaniment-Pattern Stability）",
           "description": "伴奏的节奏、速度感和律动是否一致，伴奏型与整体音乐组织是否稳定且变化自然。"
         },
         {
           "id": "correctness",
-          "label": "音乐正确性",
+          "label": "音乐正确性（Musical Correctness）",
           "description": "是否存在不合理的不协和音、异常节奏、不自然乐句等明显音乐错误。"
         },
         {
           "id": "overall",
-          "label": "整体质量",
+          "label": "整体质量（Overall Quality）",
           "description": "综合评价伴奏的自然度、流畅性、协调性与对当前旋律的适合程度。"
         }
       ],

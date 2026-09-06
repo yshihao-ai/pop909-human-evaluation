@@ -26,7 +26,7 @@
       "short_description": "完整试听 Prompt 与 Continuation，评价生成部分和前文的关系。",
       "rules_markdown": "/rules/continuation.md",
       "metrics": [
-        { "id": "replace_metric_1", "label": "请替换", "description": "直接填入正式规则文件中定义的维度。" }
+        { "id": "replace_metric_1", "label": "请替换（Replace Me）", "description": "直接填入正式规则文件中定义的维度。" }
       ],
       "prompt_length_bars": 4,
       "evaluation_length_bars": 16,
@@ -51,10 +51,10 @@
       "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
       "rules_markdown": "/rules/long-continuation.md",
       "metrics": [
-        { "id": "style_consistency", "label": "前后风格一致性", "description": "前半段与后半段的整体风格是否一致。" },
-        { "id": "harmony_rhythm_stability", "label": "节奏一致性与和声稳定性", "description": "节奏型、节拍、速度感和律动是否保持一致，并评价和声是否稳定。" },
-        { "id": "long_term_development", "label": "长程发展合理性", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
-        { "id": "latter_half_quality", "label": "后半段音乐质量", "description": "后半段是否出现明显质量退化。" }
+        { "id": "style_consistency", "label": "前后风格一致性（Style Consistency）", "description": "前半段与后半段的整体风格是否一致。" },
+        { "id": "harmony_rhythm_stability", "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）", "description": "节奏型、节拍、速度感和律动是否保持一致，并评价和声是否稳定。" },
+        { "id": "long_term_development", "label": "长程发展合理性（Long-Term Development）", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
+        { "id": "latter_half_quality", "label": "后半段音乐质量（Latter-Half Musical Quality）", "description": "后半段是否出现明显质量退化。" }
       ],
       "prompt_length_bars": 4,
       "evaluation_length_bars": 96,
@@ -81,10 +81,10 @@
       "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
       "rules_markdown": "/rules/long-continuation-pop909.md",
       "metrics": [
-        { "id": "style_consistency", "label": "前后风格一致性", "description": "前半段与后半段的整体风格是否一致。" },
-        { "id": "harmony_rhythm_stability", "label": "节奏一致性与和声稳定性", "description": "节奏型、节拍、速度感和律动是否保持一致，并评价和声是否稳定。" },
-        { "id": "long_term_development", "label": "长程发展合理性", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
-        { "id": "latter_half_quality", "label": "后半段音乐质量", "description": "后半段是否出现明显质量退化。" }
+        { "id": "style_consistency", "label": "前后风格一致性（Style Consistency）", "description": "前半段与后半段的整体风格是否一致。" },
+        { "id": "harmony_rhythm_stability", "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）", "description": "节奏型、节拍、速度感和律动是否保持一致，并评价和声是否稳定。" },
+        { "id": "long_term_development", "label": "长程发展合理性（Long-Term Development）", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
+        { "id": "latter_half_quality", "label": "后半段音乐质量（Latter-Half Musical Quality）", "description": "后半段是否出现明显质量退化。" }
       ],
       "prompt_length_bars": 4,
       "evaluation_length_bars": 96,
@@ -108,11 +108,11 @@
       "short_description": "完整试听 16 个 4/4 小节的旋律与伴奏，评价二者的适配程度。",
       "rules_markdown": "/rules/accompaniment.md",
       "metrics": [
-        { "id": "coherence", "label": "旋律与伴奏协调性", "description": "伴奏是否自然、合理地配合并支持旋律。" },
-        { "id": "harmony", "label": "和声合理性", "description": "和声是否自然且符合给定和弦进行。" },
-        { "id": "consistency", "label": "节奏一致性与伴奏型稳定性", "description": "节奏、速度感、律动和伴奏型是否一致、稳定。" },
-        { "id": "correctness", "label": "音乐正确性", "description": "是否存在明显的不协和、异常节奏或不自然乐句。" },
-        { "id": "overall", "label": "整体质量", "description": "综合评价自然度、流畅性、协调性与适配程度。" }
+        { "id": "coherence", "label": "旋律与伴奏协调性（Melody–Accompaniment Coherence）", "description": "伴奏是否自然、合理地配合并支持旋律。" },
+        { "id": "harmony", "label": "和声合理性（Harmonic Appropriateness）", "description": "和声是否自然且符合给定和弦进行。" },
+        { "id": "consistency", "label": "节奏一致性与伴奏型稳定性（Rhythmic Consistency and Accompaniment-Pattern Stability）", "description": "节奏、速度感、律动和伴奏型是否一致、稳定。" },
+        { "id": "correctness", "label": "音乐正确性（Musical Correctness）", "description": "是否存在明显的不协和、异常节奏或不自然乐句。" },
+        { "id": "overall", "label": "整体质量（Overall Quality）", "description": "综合评价自然度、流畅性、协调性与适配程度。" }
       ],
       "methods": [
         { "name": "DID", "midi_dir": "D:/accompaniment/DID", "time_scale": 1 },
