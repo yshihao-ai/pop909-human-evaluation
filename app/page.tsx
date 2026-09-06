@@ -48,6 +48,10 @@ function publicPath(path: string) {
   return `${appBasePath}/${path.replace(/^\/+/, '')}`;
 }
 
+function midiFileName(sampleId: string) {
+  return /\.(?:mid|midi)$/i.test(sampleId) ? sampleId : `${sampleId}.mid`;
+}
+
 function downloadFile(name: string, content: string, type: string) {
   const url = URL.createObjectURL(new Blob([content], { type }));
   const anchor = document.createElement('a');
@@ -637,7 +641,7 @@ export default function Home() {
               {group.reference && (
                 <article className="sample-card border-primary/40" key={`reference:${group.group_id}`}>
                   <div className="sample-head">
-                    <div><span className="sample-index"><Music2 className="size-5" /></span><div><h3 className="text-lg font-semibold">GT · 原曲参考</h3><p className="text-xs text-muted-foreground">建议先试听原曲，再评价下方生成结果；参考音频无需评分。</p></div></div>
+                    <div><span className="sample-index"><Music2 className="size-5" /></span><div><h3 className="text-lg font-semibold">GT · 原曲参考</h3><p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground"><span className="rounded-md bg-secondary px-2 py-0.5 font-mono text-foreground">MIDI {midiFileName(group.sample_id)}</span><span>建议先试听原曲，再评价下方生成结果；参考音频无需评分。</span></p></div></div>
                     <span className="status-pill"><Headphones />优先试听</span>
                   </div>
                   <div className="border-t border-border bg-secondary/30 px-4 py-3 sm:px-6">
@@ -653,7 +657,7 @@ export default function Home() {
                 return (
                   <article className="sample-card" key={`${group.group_id}:${sample.audio_url}`}>
                     <div className="sample-head">
-                      <div><span className="sample-index">{manifest.show_model_names ? sample.order : sample.anonymousId.replace('Sample ', '')}</span><div><h3 className="text-lg font-semibold">{sample.anonymousId}</h3><p className="text-xs text-muted-foreground">{revealed ? `真实模型：${sample.model}` : '完整音频 · 可重复试听'}</p></div></div>
+                      <div><span className="sample-index">{manifest.show_model_names ? sample.order : sample.anonymousId.replace('Sample ', '')}</span><div><h3 className="text-lg font-semibold">{sample.anonymousId}</h3><p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground"><span className="rounded-md bg-secondary px-2 py-0.5 font-mono text-foreground">MIDI {midiFileName(group.sample_id)}</span><span>{revealed ? `真实模型：${sample.model}` : '完整音频 · 可重复试听'}</span></p></div></div>
                       <div className="flex flex-wrap items-center justify-end gap-2">
                         <span className={`status-pill ${complete ? 'status-done' : ''}`}>{complete ? <Check /> : <Headphones />}{complete ? '已完成评分' : '等待评分'}</span>
                         {manifest.allow_model_reveal_after_scoring && !manifest.show_model_names && (
