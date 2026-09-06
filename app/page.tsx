@@ -89,6 +89,9 @@ function packageManifestForSite(baseline: Manifest, candidate: Manifest) {
   if (!candidate || candidate.study_id !== baseline.study_id || !candidate.version || !Array.isArray(candidate.tasks)) {
     throw new Error('数据包内的评测配置无效。');
   }
+  if (candidate.version !== baseline.version) {
+    throw new Error(`数据包版本与当前网站不一致：需要 ${baseline.version}。`);
+  }
   const taskTypes = candidate.tasks.map((item) => item.task_type);
   if (candidate.tasks.length !== baseline.tasks.length || new Set(taskTypes).size !== baseline.tasks.length || baseline.tasks.some((item) => !taskTypes.includes(item.task_type))) {
     throw new Error('数据包内的评测任务与当前网站不一致。');
@@ -351,7 +354,9 @@ export default function Home() {
     ? task.groups.map((entry, index) => ({ entry, index })).filter(({ entry }) => (entry.sampling_group_id ?? 'primary') === activeSamplingGroupId)
     : [], [activeSamplingGroupId, task]);
   const activeSamplingGroupPosition = Math.max(0, activeSamplingGroupIndices.findIndex((entry) => entry.index === groupIndex));
-  const samples = useMemo(() => group ? anonymize(group, evaluatorId, manifest?.show_model_names) : [], [group, evaluatorId, manifest?.show_model_names]);
+  const samples = useMemo(() => group && task
+    ? anonymize(group, evaluatorId, manifest?.show_model_names, task.task_type, groupIndex)
+    : [], [group, groupIndex, evaluatorId, manifest?.show_model_names, task]);
 
   const loadLocalPackage = async (fileList: FileList | null) => {
     if (!manifest || !fileList?.length) return;
@@ -453,7 +458,7 @@ export default function Home() {
 
   const isGroupComplete = useCallback((currentTask: Task, targetIndex: number) => {
     const target = currentTask.groups[targetIndex];
-    return anonymize(target, evaluatorId, manifest?.show_model_names).every((sample) => isSampleComplete(currentTask, target.group_id, sample.anonymousId));
+    return anonymize(target, evaluatorId, manifest?.show_model_names, currentTask.task_type, targetIndex).every((sample) => isSampleComplete(currentTask, target.group_id, sample.anonymousId));
   }, [evaluatorId, isSampleComplete, manifest?.show_model_names]);
 
   const totalGroups = manifest?.tasks.reduce((sum, item) => sum + item.groups.length, 0) ?? 0;
@@ -488,8 +493,10 @@ export default function Home() {
       ? `${selectedTasks[0].title}「${scopedSamplingGroup?.title ?? selectedTasks[0].groups[0].sampling_group_title ?? scopeSamplingGroupId}」`
       : scopeTaskType ? selectedTasks[0].title : '全部任务';
     const generatedAt = new Date().toISOString();
-    const rows = selectedTasks.flatMap((item) => item.groups.flatMap((entry) =>
-      anonymize(entry, evaluatorId, manifest.show_model_names).map((sample) => ({
+    const rows = selectedTasks.flatMap((item) => item.groups.flatMap((entry) => {
+      const sourceTask = manifest.tasks.find((candidate) => candidate.task_type === item.task_type) ?? item;
+      const sourceIndex = sourceTask.groups.findIndex((candidate) => candidate.group_id === entry.group_id);
+      return anonymize(entry, evaluatorId, manifest.show_model_names, item.task_type, sourceIndex).map((sample) => ({
         evaluator_id: evaluatorId.trim(), task_type: item.task_type, group_id: entry.group_id,
         sampling_group_id: entry.sampling_group_id ?? 'primary',
         sampling_group_title: entry.sampling_group_title ?? '初始抽样',
@@ -497,8 +504,8 @@ export default function Home() {
         real_model_name: sample.model, display_order: sample.order,
         ...Object.fromEntries(item.metrics.map((metric) => [metric.id, scores[scoreKey(item.task_type, entry.group_id, sample.anonymousId)]?.[metric.id] ?? ''])),
         timestamp: generatedAt, manifest_version: manifest.version,
-      }))
-    )) as ExportRow[];
+      }));
+    })) as ExportRow[];
     const missing = rows.filter((row) => Object.values(row).includes('')).length;
     if (missing) throw new Error(`${scopeLabel}还有 ${missing} 个 Sample 未完成全部评分。`);
     const summary = summarizeByModel({ ...manifest, tasks: selectedTasks }, rows, evaluatorId.trim(), generatedAt);
@@ -655,7 +662,7 @@ export default function Home() {
               <Progress value={progress} className="[&_[data-slot=progress-indicator]]:bg-primary [&_[data-slot=progress-track]]:h-2"><ProgressLabel className="sr-only">总体进度</ProgressLabel><ProgressValue className="sr-only">{() => `${progress}%`}</ProgressValue></Progress>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">评分保存在当前浏览器中。更换设备前请导出结果。</p>
             </section>
-            <div className="flex items-start gap-3 border-l-2 border-primary/40 pl-4 text-sm leading-6 text-muted-foreground"><ShieldCheck className="mt-1 size-4 shrink-0 text-primary" />{manifest.show_model_names ? '调试模式：当前直接显示模型名称。' : manifest.allow_model_reveal_after_scoring ? '模型顺序随机；完成单个 Sample 的全部评分后，可选择查看真实模型。' : '模型身份与文件名已匿名，请仅依据听感评分。'}</div>
+            <div className="flex items-start gap-3 border-l-2 border-primary/40 pl-4 text-sm leading-6 text-muted-foreground"><ShieldCheck className="mt-1 size-4 shrink-0 text-primary" />{manifest.show_model_names ? '调试模式：当前直接显示模型名称。' : manifest.allow_model_reveal_after_scoring ? '模型顺序随机，并在每个抽样组内均衡首位分布；完成单个 Sample 的全部评分后，可选择查看真实模型。' : '模型身份与文件名已匿名，请仅依据听感评分。'}</div>
             {manifest.phase === 'development' && <div className="rounded-xl border border-amber-300/60 bg-amber-50 p-3 text-xs leading-5 text-amber-900"><strong>检查阶段</strong><br />已接入真实评测音频；抽样清单尚未冻结。</div>}
             {manifest.quality_notice && <p className="rounded-xl border border-amber-300/60 bg-amber-50 p-3 text-xs leading-5 text-amber-900">{manifest.quality_notice}</p>}
           </aside>

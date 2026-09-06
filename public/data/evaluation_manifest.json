@@ -1,7 +1,7 @@
 {
   "study_id": "pop909_pop1k7_subjective_evaluation",
   "phase": "development",
-  "version": "2.6.0-local-audio",
+  "version": "2.7.0-balanced-order",
   "audio_delivery": "local_package",
   "show_model_names": false,
   "allow_model_reveal_after_scoring": true,

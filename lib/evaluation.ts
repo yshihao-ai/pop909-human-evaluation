@@ -53,7 +53,23 @@ function random(seed: number) {
   };
 }
 
-export function anonymize(group: Group, evaluatorId: string, showModelNames = false): AnonymousSample[] {
+function shuffle<T>(items: T[], seed: string) {
+  const rng = random(hash(seed));
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(rng() * (index + 1));
+    [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+  }
+  return shuffled;
+}
+
+export function anonymize(
+  group: Group,
+  evaluatorId: string,
+  showModelNames = false,
+  taskType = '',
+  taskGroupOrdinal = 0,
+): AnonymousSample[] {
   if (showModelNames) {
     return group.samples.map((sample, order) => ({
       ...sample,
@@ -61,13 +77,15 @@ export function anonymize(group: Group, evaluatorId: string, showModelNames = fa
       order: order + 1,
     }));
   }
-  const rng = random(hash(`${evaluatorId.trim().toUpperCase()}::${group.group_id}`));
-  const shuffled = [...group.samples];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(rng() * (index + 1));
-    [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
-  }
-  return shuffled.map((sample, order) => ({
+  const evaluator = evaluatorId.trim().toUpperCase();
+  const samples = [...group.samples].sort((left, right) => left.model.localeCompare(right.model));
+  const cycleOrder = shuffle(samples, `${evaluator}::${taskType}::first`);
+  const firstSample = cycleOrder[taskGroupOrdinal % samples.length];
+  const remaining = shuffle(
+    samples.filter((sample) => sample.model !== firstSample.model),
+    `${evaluator}::${taskType}::${group.group_id}::remaining`,
+  );
+  return [firstSample, ...remaining].map((sample, order) => ({
     ...sample,
     anonymousId: `Sample ${String.fromCharCode(65 + order)}`,
     order: order + 1,
