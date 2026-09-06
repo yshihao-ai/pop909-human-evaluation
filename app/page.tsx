@@ -460,14 +460,33 @@ export default function Home() {
   const completedGroups = manifest?.tasks.reduce((sum, item) => sum + item.groups.filter((_, index) => isGroupComplete(item, index)).length, 0) ?? 0;
   const progress = totalGroups ? Math.round((completedGroups / totalGroups) * 100) : 0;
 
-  const buildExport = useCallback((format: 'csv' | 'json', report: 'detail' | 'summary' = 'detail', scopeTaskType?: string, triggerDownload = true) => {
+  const activeSamplingGroupCompletedGroups = task
+    ? activeSamplingGroupIndices.filter(({ index }) => isGroupComplete(task, index)).length
+    : 0;
+  const activeSamplingGroupComplete = activeSamplingGroupIndices.length > 0
+    && activeSamplingGroupCompletedGroups === activeSamplingGroupIndices.length;
+
+  const buildExport = useCallback((format: 'csv' | 'json', report: 'detail' | 'summary' = 'detail', scopeTaskType?: string, scopeSamplingGroupId?: string, triggerDownload = true) => {
     if (!manifest) throw new Error('评测配置尚未加载。');
     if (!evaluatorId.trim()) throw new Error('请填写 evaluator ID。');
-    const selectedTasks = scopeTaskType
+    if (scopeSamplingGroupId && !scopeTaskType) throw new Error('导出抽样组时必须指定所属任务。');
+    const matchingTasks = scopeTaskType
       ? manifest.tasks.filter((item) => item.task_type === scopeTaskType)
       : manifest.tasks;
-    if (!selectedTasks.length) throw new Error('未找到要导出的评测任务。');
-    const scopeLabel = scopeTaskType ? selectedTasks[0].title : '全部任务';
+    if (!matchingTasks.length) throw new Error('未找到要导出的评测任务。');
+    const selectedTasks = matchingTasks.map((item) => ({
+      ...item,
+      groups: scopeSamplingGroupId
+        ? item.groups.filter((entry) => (entry.sampling_group_id ?? 'primary') === scopeSamplingGroupId)
+        : item.groups,
+    }));
+    if (scopeSamplingGroupId && !selectedTasks[0].groups.length) throw new Error('未找到要导出的抽样组。');
+    const scopedSamplingGroup = scopeSamplingGroupId
+      ? selectedTasks[0].sampling_groups?.find((entry) => entry.id === scopeSamplingGroupId)
+      : undefined;
+    const scopeLabel = scopeSamplingGroupId
+      ? `${selectedTasks[0].title}「${scopedSamplingGroup?.title ?? selectedTasks[0].groups[0].sampling_group_title ?? scopeSamplingGroupId}」`
+      : scopeTaskType ? selectedTasks[0].title : '全部任务';
     const generatedAt = new Date().toISOString();
     const rows = selectedTasks.flatMap((item) => item.groups.flatMap((entry) =>
       anonymize(entry, evaluatorId, manifest.show_model_names).map((sample) => ({
@@ -484,9 +503,24 @@ export default function Home() {
     if (missing) throw new Error(`${scopeLabel}还有 ${missing} 个 Sample 未完成全部评分。`);
     const summary = summarizeByModel({ ...manifest, tasks: selectedTasks }, rows, evaluatorId.trim(), generatedAt);
     const stamp = new Date().toISOString().slice(0, 10);
-    const scopeSlug = scopeTaskType ?? 'all_tasks';
+    const scopeSlug = scopeSamplingGroupId ? `${scopeTaskType}_${scopeSamplingGroupId}` : scopeTaskType ?? 'all_tasks';
     if (format === 'json') {
-      const content = JSON.stringify({ study_id: manifest.study_id, evaluator_id: evaluatorId.trim(), task_scope: selectedTasks.map((item) => ({ task_type: item.task_type, title: item.title })), exported_at: generatedAt, rows, model_averages: summary }, null, 2);
+      const taskScope = selectedTasks.map((item) => {
+        const entry: Record<string, string> = { task_type: item.task_type, title: item.title };
+        if (scopeSamplingGroupId) {
+          entry.sampling_group_id = scopeSamplingGroupId;
+          entry.sampling_group_title = scopedSamplingGroup?.title ?? item.groups[0].sampling_group_title ?? scopeSamplingGroupId;
+        }
+        return entry;
+      });
+      const content = JSON.stringify({
+        study_id: manifest.study_id,
+        evaluator_id: evaluatorId.trim(),
+        task_scope: taskScope,
+        exported_at: generatedAt,
+        rows,
+        model_averages: summary,
+      }, null, 2);
       if (triggerDownload) downloadFile(`pop909_pop1k7_${scopeSlug}_${evaluatorId}_${stamp}.json`, content, 'application/json');
       return { format, report: 'complete', records: rows.length, summaryRecords: summary.length, scopeLabel };
     }
@@ -512,15 +546,16 @@ export default function Home() {
     });
     void register({
       name: 'export_evaluation_results', title: '导出评测结果',
-      description: '导出单个已完成任务或全部任务的逐条评分、模型平均分，或包含二者的 JSON。',
-      inputSchema: { type: 'object', properties: { format: { type: 'string', enum: ['csv', 'json'] }, report: { type: 'string', enum: ['detail', 'summary'] }, task_type: { type: 'string', enum: manifest.tasks.map((item) => item.task_type), description: '省略时导出全部任务。' } }, required: ['format'], additionalProperties: false },
+      description: '导出单个已完成抽样组、整个已完成任务或全部任务的逐条评分、模型平均分，或包含二者的 JSON。',
+      inputSchema: { type: 'object', properties: { format: { type: 'string', enum: ['csv', 'json'] }, report: { type: 'string', enum: ['detail', 'summary'] }, task_type: { type: 'string', enum: manifest.tasks.map((item) => item.task_type), description: '指定任务；省略时导出全部任务。' }, sampling_group_id: { type: 'string', description: '可选；只导出指定任务中的一个已完成抽样组。' } }, required: ['format'], additionalProperties: false },
       annotations: { readOnlyHint: false, untrustedContentHint: false },
       execute: (input) => {
-        const value = input as { format?: string; report?: string; task_type?: string };
+        const value = input as { format?: string; report?: string; task_type?: string; sampling_group_id?: string };
         if (value.format !== 'csv' && value.format !== 'json') throw new Error('format 必须为 csv 或 json。');
         if (value.task_type && !manifest.tasks.some((item) => item.task_type === value.task_type)) throw new Error('task_type 不存在。');
+        if (value.sampling_group_id && !value.task_type) throw new Error('sampling_group_id 必须与 task_type 一起使用。');
         const report = value.report === 'summary' ? 'summary' : 'detail';
-        return buildExport(value.format, report, value.task_type);
+        return buildExport(value.format, report, value.task_type, value.sampling_group_id);
       },
     });
     return () => lifecycle.abort();
@@ -547,9 +582,9 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const exportWithNotice = (format: 'csv' | 'json', report: 'detail' | 'summary' = 'detail', scopeTaskType?: string) => {
+  const exportWithNotice = (format: 'csv' | 'json', report: 'detail' | 'summary' = 'detail', scopeTaskType?: string, scopeSamplingGroupId?: string) => {
     try {
-      const result = buildExport(format, report, scopeTaskType);
+      const result = buildExport(format, report, scopeTaskType, scopeSamplingGroupId);
       const detail = format === 'json'
         ? `已导出${result.scopeLabel}的 ${result.records} 条评分明细和 ${result.summaryRecords} 条模型平均分。`
         : `已导出${result.scopeLabel}的 ${result.records} 条${report === 'summary' ? '模型平均分' : '评分明细'}。`;
@@ -704,12 +739,12 @@ export default function Home() {
               </section>
               <section className="rounded-2xl border border-border bg-card p-5">
                 <p className="eyebrow">导出结果</p>
-                <p className="mt-2 text-xs leading-5 text-muted-foreground">当前任务完成后即可单独保存。完整结果同时包含逐条评分和按模型计算的平均分。</p>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">当前抽样组完成后即可单独保存，其他抽样组未完成不影响。结果同时包含逐条评分和本组各模型平均分。</p>
                 <div className="mt-4 grid gap-2">
-                  <Button className="export-button" onClick={() => exportWithNotice('json', 'detail', task.task_type)} disabled={!task.groups.every((_, index) => isGroupComplete(task, index))}><Download data-icon="inline-start" /><span className="min-w-0">导出当前「{task.title}」结果</span></Button>
+                  <Button className="export-button" onClick={() => exportWithNotice('json', 'detail', task.task_type, activeSamplingGroupId)} disabled={!activeSamplingGroupComplete}><Download data-icon="inline-start" /><span className="min-w-0">导出当前「{activeSamplingGroup.title}」结果</span></Button>
                   <Button className="export-button" variant="outline" onClick={() => exportWithNotice('json')} disabled={completedGroups !== totalGroups}><FileJson data-icon="inline-start" /><span className="min-w-0">导出所有任务结果</span></Button>
                 </div>
-                <p className="mt-3 text-xs leading-5 text-muted-foreground">{task.groups.every((_, index) => isGroupComplete(task, index)) ? '当前任务已完成，可以导出。' : `当前任务完成 ${task.groups.filter((_, index) => isGroupComplete(task, index)).length}/${task.groups.length} 组。`}</p>
+                <p className="mt-3 text-xs leading-5 text-muted-foreground">{activeSamplingGroupComplete ? '当前抽样组已完成，可以导出。' : `当前抽样组完成 ${activeSamplingGroupCompletedGroups}/${activeSamplingGroupIndices.length} 个样本。`}</p>
               </section>
               <nav className="rounded-2xl border border-border bg-card p-3" aria-label="组导航">
                 <p className="px-2 pb-2 text-xs font-medium text-muted-foreground">{task.title}分组</p>
