@@ -20,8 +20,8 @@
         },
         {
           "id": "consistency",
-          "label": "Consistency",
-          "description": "续写部分自身在节奏和音乐进行上是否连续、稳定，是否存在卡顿或突变。"
+          "label": "节奏一致性（Rhythmic Consistency）",
+          "description": "续写部分自身的节奏型、节奏密度和速度感是否连续、稳定，并兼顾音乐进行中是否存在卡顿或突变。"
         },
         {
           "id": "harmony",
@@ -1147,8 +1147,8 @@
         },
         {
           "id": "consistency",
-          "label": "Consistency",
-          "description": "续写部分自身在节奏和音乐进行上是否连续、稳定，是否存在卡顿或突变。"
+          "label": "节奏一致性（Rhythmic Consistency）",
+          "description": "续写部分自身的节奏型、节奏密度和速度感是否连续、稳定，并兼顾音乐进行中是否存在卡顿或突变。"
         },
         {
           "id": "harmony",
@@ -1749,8 +1749,8 @@
         },
         {
           "id": "harmony_rhythm_stability",
-          "label": "和声与节奏稳定性",
-          "description": "调性、和声语言、节拍、速度感与律动是否稳定，是否出现无合理过渡的漂移或崩坏。"
+          "label": "节奏一致性与和声稳定性",
+          "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
         },
         {
           "id": "long_term_development",
@@ -2071,8 +2071,8 @@
         },
         {
           "id": "harmony_rhythm_stability",
-          "label": "和声与节奏稳定性",
-          "description": "调性、和声语言、节拍、速度感与律动是否稳定，是否出现无合理过渡的漂移或崩坏。"
+          "label": "节奏一致性与和声稳定性",
+          "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
         },
         {
           "id": "long_term_development",
