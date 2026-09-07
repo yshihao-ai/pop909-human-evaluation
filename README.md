@@ -44,7 +44,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 伴奏任务保留 DID 与 GT 的原始力度；D3PIA、FGG、Polyffusion、WholeSongGen 统一覆盖为力度 80，并额外加入使用同一 DID MIDI、仅将正力度 `note_on` 覆盖为 80 的 `DID-80` 对照版本。力度覆盖不会改变音高、起音位置、音符时值、轨道、通道或其他 MIDI 事件。
 
-给定和弦生成任务同样保留 DID 原始力度版本，并增加统一力度 80 的 `DID-80` 对照版本；FGG 统一覆盖为力度 80，GT 保留原始力度且仅作参考。
+给定和弦生成任务只保留 DID 原始力度变化版本；FGG 统一覆盖为力度 80，GT 保留原始力度且仅作参考。
 
 续写源文件明显不足 16 小节时，默认以 `insufficient_length` 拒绝处理；检查阶段可显式开启 `allow_short_preview`，保留真实较短时长并写入 `length_warning`，页面提示不能用于正式评测。当前 BEAT 文件约 64 拍（32 个 2/4 小节、16 个 4/4 小节），正好满足本次目标；MuseTok 部分文件约 32 拍，仍只有 8 个 4/4 小节。不会通过倍速拉伸、循环或拼接补足长度。伴奏保持 16 个 4/4 小节，在 120 BPM 下约为 32 秒。
 

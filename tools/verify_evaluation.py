@@ -30,13 +30,18 @@ def main():
     config = json.loads(Path(args.config).read_text(encoding='utf8'))
     workspace = Path(config['evaluation_workspace'])
     with (workspace/'reports/preprocessing_report.csv').open(encoding='utf-8-sig') as handle:
-        rows = list(csv.DictReader(handle))
+        report_rows = list(csv.DictReader(handle))
     errors = []
     warnings = []
     method_velocity_overrides = {
         (task['task_type'], method['name']): method.get('velocity_override')
         for task in config['tasks'] for method in task['methods']
     }
+    rows = [
+        row for row in report_rows
+        if (row['task_type'], row['method']) in method_velocity_overrides
+    ]
+    ignored_report_rows = len(report_rows) - len(rows)
     for row in rows:
         label = '/'.join(row[x] for x in ('task_type','method','sample_id'))
         if row['status'] != 'ok':
@@ -84,7 +89,8 @@ def main():
             for sample in [reference, *group['samples']]:
                 if sample and not (workspace/'web_audio'/sample['audio_url'].removeprefix('/audio/')).is_file():
                     errors.append(group['group_id']+': missing web audio')
-    result = {'files':len(rows),'gt_reference_count':references,'rated_samples':rated,
+    result = {'files':len(rows),'ignored_retired_method_rows':ignored_report_rows,
+              'gt_reference_count':references,'rated_samples':rated,
               'configured_note_events_match':not errors,'short_source_warnings':warnings,'errors':errors}
     output = workspace/'reports/verification.json'
     output.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf8')

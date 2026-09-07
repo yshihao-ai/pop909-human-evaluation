@@ -1,7 +1,7 @@
 {
   "study_id": "pop909_pop1k7_subjective_evaluation",
   "phase": "development",
-  "version": "4.0.0-final",
+  "version": "4.0.1-final",
   "audio_delivery": "local_package",
   "show_model_names": false,
   "allow_model_reveal_after_scoring": true,
@@ -1060,10 +1060,6 @@
               "audio_url": "/audio/chord_conditioned/346/d33e892d6113c16d7a53da0f.mp3"
             },
             {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/346/1d78a23e3576f25295954f5a.mp3"
-            },
-            {
               "model": "FGG",
               "audio_url": "/audio/chord_conditioned/346/d8fe017cf195b5a4ef640e43.mp3"
             }
@@ -1082,10 +1078,6 @@
             {
               "model": "DID",
               "audio_url": "/audio/chord_conditioned/290/9b51c3368fcac27eb8fa42bb.mp3"
-            },
-            {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/290/b75b333d699689df3c4ace0f.mp3"
             },
             {
               "model": "FGG",
@@ -1108,10 +1100,6 @@
               "audio_url": "/audio/chord_conditioned/705/3514aa1c371c91a192d970ba.mp3"
             },
             {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/705/7dad6d2de98f66cd61a49872.mp3"
-            },
-            {
               "model": "FGG",
               "audio_url": "/audio/chord_conditioned/705/06a2c9a84f670e193f260477.mp3"
             }
@@ -1130,10 +1118,6 @@
             {
               "model": "DID",
               "audio_url": "/audio/chord_conditioned/300/26ef989d907d05f5c5413acb.mp3"
-            },
-            {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/300/32fa6e796cd229388142f465.mp3"
             },
             {
               "model": "FGG",
@@ -1156,10 +1140,6 @@
               "audio_url": "/audio/chord_conditioned/375/12bdbdf7cef353646faa9158.mp3"
             },
             {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/375/36c17cd7a1636a1ecbc0002e.mp3"
-            },
-            {
               "model": "FGG",
               "audio_url": "/audio/chord_conditioned/375/48df8867987dc9772cf479a0.mp3"
             }
@@ -1178,10 +1158,6 @@
             {
               "model": "DID",
               "audio_url": "/audio/chord_conditioned/748/b8f60577d0647cde10eebe90.mp3"
-            },
-            {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/748/22756b0b631dcc32d9da1e0a.mp3"
             },
             {
               "model": "FGG",
@@ -1204,10 +1180,6 @@
               "audio_url": "/audio/chord_conditioned/427/4ad02d5c74ae7fd65f7c67e2.mp3"
             },
             {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/427/f1e2482aa752d2d9e61630ea.mp3"
-            },
-            {
               "model": "FGG",
               "audio_url": "/audio/chord_conditioned/427/0ef6ac24b65af91722349e93.mp3"
             }
@@ -1226,10 +1198,6 @@
             {
               "model": "DID",
               "audio_url": "/audio/chord_conditioned/837/1ac3a3ee439ae96a827fb4d4.mp3"
-            },
-            {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/837/0dae95cdb47c4efd1c6677b8.mp3"
             },
             {
               "model": "FGG",
@@ -1252,10 +1220,6 @@
               "audio_url": "/audio/chord_conditioned/160/4d996016a827840528cc6c69.mp3"
             },
             {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/160/a27aa187281eeeb73fa5d50e.mp3"
-            },
-            {
               "model": "FGG",
               "audio_url": "/audio/chord_conditioned/160/85d420275a319efe88ca5e5c.mp3"
             }
@@ -1274,10 +1238,6 @@
             {
               "model": "DID",
               "audio_url": "/audio/chord_conditioned/359/d58b5f9c30a60960f452be6b.mp3"
-            },
-            {
-              "model": "DID-80",
-              "audio_url": "/audio/chord_conditioned/359/7f954d392e40fb801aeddc19.mp3"
             },
             {
               "model": "FGG",
