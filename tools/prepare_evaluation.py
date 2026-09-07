@@ -127,10 +127,20 @@ def load_sample_sets(workspace: Path, config: dict[str, Any]) -> dict[str, list[
 def task_sampling_groups(workspace: Path, config: dict[str, Any], task: dict[str, Any]) -> list[dict[str, Any]]:
     """Return the original reproducible sample plus administrator-added task groups."""
     sampled_sets = load_sample_sets(workspace, config)
+    configured_primary = task.get("primary_sample_ids")
+    primary_ids = (
+        [str(value).strip() for value in configured_primary if str(value).strip()]
+        if configured_primary is not None
+        else list(sampled_sets[task_sample_set(task)])
+    )
+    if not primary_ids:
+        raise ValueError(f"Task {task['task_type']} has an empty primary sample group")
+    if len(primary_ids) != len(set(primary_ids)):
+        raise ValueError(f"Task {task['task_type']} primary sample group contains duplicate MIDI names")
     groups = [{
         "id": "primary",
         "title": "初始抽样",
-        "sample_ids": list(sampled_sets[task_sample_set(task)]),
+        "sample_ids": primary_ids,
     }]
     path = workspace / "manifests" / "task_sampling_groups.json"
     if not path.is_file():

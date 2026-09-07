@@ -20,8 +20,11 @@
 **和声合理性（Harmonic Appropriateness）**  
 评价伴奏的和声合理性，包括是否符合给定的和弦进行（Chord Progression），以及是否存在明显的和声音高冲突或不合理的和弦使用。
 
-**节奏一致性与伴奏型稳定性（Rhythmic Consistency and Accompaniment-Pattern Stability）**  
-重点评价伴奏的节奏型、节奏密度、速度感和律动是否保持一致、稳定，同时评价伴奏型和整体音乐组织的变化是否自然连贯。
+**节奏一致性（Rhythmic Consistency）**  
+评价伴奏的节奏型、节奏密度、速度感和律动是否连续、稳定，是否存在卡顿、突变或节奏失控。
+
+**伴奏型稳定性（Accompaniment-Pattern Stability）**  
+评价伴奏型及其织体组织是否清晰、稳定，重复与变化是否自然连贯，是否存在无逻辑的伴奏型切换。
 
 **音乐正确性（Musical Correctness）**  
 评价伴奏中是否存在明显的音乐错误，例如不合理的不协和音、异常节奏、不自然的乐句（awkward phrasing），或其他明显影响听感的问题。
