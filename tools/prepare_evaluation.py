@@ -139,7 +139,7 @@ def task_sampling_groups(workspace: Path, config: dict[str, Any], task: dict[str
         raise ValueError(f"Task {task['task_type']} primary sample group contains duplicate MIDI names")
     groups = [{
         "id": "primary",
-        "title": "初始抽样",
+        "title": str(task.get("primary_sampling_group_title", "初始抽样")),
         "sample_ids": primary_ids,
     }]
     path = workspace / "manifests" / "task_sampling_groups.json"

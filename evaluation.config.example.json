@@ -22,6 +22,8 @@
       "task_type": "continuation",
       "task_kind": "continuation",
       "sample_set": "pop909",
+      "primary_sampling_group_title": "抽样组 2",
+      "primary_sample_ids": ["007", "031", "038", "057", "094", "109", "118", "124", "125", "133"],
       "title": "音乐续写",
       "short_description": "完整试听 Prompt 与 Continuation，评价生成部分和前文的关系。",
       "rules_markdown": "/rules/continuation.md",
@@ -36,37 +38,6 @@
         { "name": "DID", "midi_dir": "D:/continuation/DID", "time_scale": 1 },
         { "name": "GroundTruth", "midi_dir": "D:/continuation/GroundTruth", "time_scale": 1 },
         { "name": "Method_A", "midi_dir": "D:/continuation/Method_A", "time_scale": 1 }
-      ]
-    },
-    {
-      "task_type": "continuation_pop1k7_long",
-      "task_kind": "continuation",
-      "sample_set": "pop1k7_long",
-      "content_revision": "96bars",
-      "sample_reference_midi_dir": "D:/long-continuation/DID_96bars/song_predict",
-      "seed": 42,
-      "num_samples": 5,
-      "minimum_common_covered_bars_4_4": 96,
-      "title": "Pop1k7 长程生成一致性",
-      "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中的前后一致性和后半段质量。",
-      "rules_markdown": "/rules/long-continuation.md",
-      "metrics": [
-        { "id": "style_consistency", "label": "前后风格一致性（Style Consistency）", "description": "前半段与后半段的整体风格是否一致。" },
-        { "id": "rhythmic_consistency", "label": "节奏一致性（Rhythmic Consistency）", "description": "节奏型、节拍、速度感和律动是否连续、稳定。" },
-        { "id": "harmonic_stability", "label": "和声稳定性（Harmonic Stability）", "description": "调性、和弦进行与和声语言是否稳定，变化是否具有合理过渡。" },
-        { "id": "long_term_development", "label": "长程发展合理性（Long-Term Development）", "description": "是否具有合理发展并避免机械重复或无逻辑跳变。" },
-        { "id": "latter_half_quality", "label": "后半段音乐质量（Latter-Half Musical Quality）", "description": "后半段是否出现明显质量退化。" }
-      ],
-      "prompt_length_bars": 4,
-      "evaluation_length_bars": 96,
-      "length_tolerance_bars": 1,
-      "allow_short_preview": false,
-      "methods": [
-        { "name": "DID", "midi_dir": "D:/long-continuation/DID_96bars/song_predict", "time_scale": 1 },
-        { "name": "GroundTruth", "midi_dir": "D:/long-continuation/DID_96bars/song_answer", "time_scale": 1 },
-        { "name": "CP", "midi_dir": "D:/long-continuation/CP", "time_scale": 1 },
-        { "name": "NMT", "midi_dir": "D:/long-continuation/NMT", "time_scale": 1 },
-        { "name": "REMI", "midi_dir": "D:/long-continuation/REMI", "time_scale": 1 }
       ]
     },
     {
