@@ -612,14 +612,14 @@ def web_manifest_command(config: dict[str, Any], config_dir: Path) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     title_by_type = {task["task_type"]: task["title"] for task in config["tasks"]}
     short_sources = sorted({
-        f"{title_by_type.get(row['task_type'], row['task_type'])}的 {row['method']}"
+        title_by_type.get(row['task_type'], row['task_type'])
         for row in report if row.get("length_warning")
     })
     payload = {"study_id": config.get("study_id", "pop909_subjective_evaluation"), "phase": "development", "version": config.get("version", "1.0.0"),
                "audio_delivery": "local_package",
                "show_model_names": bool(config.get("show_model_names", False)),
                "allow_model_reveal_after_scoring": bool(config.get("allow_model_reveal_after_scoring", False)),
-               "quality_notice": f"{'、'.join(short_sources)} 部分源文件短于目标长度，当前仅供检查试听，正式评测前需补齐源 MIDI。" if short_sources else "", "tasks": tasks}
+               "quality_notice": f"{'、'.join(short_sources)}中有部分源文件短于目标长度，当前仅供检查试听，正式评测前需补齐源 MIDI。" if short_sources else "", "tasks": tasks}
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote web manifest: {output}")
 

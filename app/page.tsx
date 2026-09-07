@@ -464,6 +464,9 @@ export default function Home() {
   const totalGroups = manifest?.tasks.reduce((sum, item) => sum + item.groups.length, 0) ?? 0;
   const completedGroups = manifest?.tasks.reduce((sum, item) => sum + item.groups.filter((_, index) => isGroupComplete(item, index)).length, 0) ?? 0;
   const progress = totalGroups ? Math.round((completedGroups / totalGroups) * 100) : 0;
+  const activeTaskComplete = task
+    ? task.groups.length > 0 && task.groups.every((_, index) => isGroupComplete(task, index))
+    : false;
 
   const activeSamplingGroupCompletedGroups = task
     ? activeSamplingGroupIndices.filter(({ index }) => isGroupComplete(task, index)).length
@@ -662,7 +665,7 @@ export default function Home() {
               <Progress value={progress} className="[&_[data-slot=progress-indicator]]:bg-primary [&_[data-slot=progress-track]]:h-2"><ProgressLabel className="sr-only">总体进度</ProgressLabel><ProgressValue className="sr-only">{() => `${progress}%`}</ProgressValue></Progress>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">评分保存在当前浏览器中。更换设备前请导出结果。</p>
             </section>
-            <div className="flex items-start gap-3 border-l-2 border-primary/40 pl-4 text-sm leading-6 text-muted-foreground"><ShieldCheck className="mt-1 size-4 shrink-0 text-primary" />{manifest.show_model_names ? '调试模式：当前直接显示模型名称。' : manifest.allow_model_reveal_after_scoring ? '模型顺序随机，并在每个抽样组内均衡首位分布；完成单个 Sample 的全部评分后，可选择查看真实模型。' : '模型身份与文件名已匿名，请仅依据听感评分。'}</div>
+            <div className="flex items-start gap-3 border-l-2 border-primary/40 pl-4 text-sm leading-6 text-muted-foreground"><ShieldCheck className="mt-1 size-4 shrink-0 text-primary" />{manifest.show_model_names ? '调试模式：当前直接显示模型名称。' : manifest.allow_model_reveal_after_scoring ? '模型顺序随机，并在每个抽样组内均衡首位分布；完成当前任务的全部 Group 评分后，才可查看真实模型。' : '模型身份与文件名已匿名，请仅依据听感评分。'}</div>
             {manifest.phase === 'development' && <div className="rounded-xl border border-amber-300/60 bg-amber-50 p-3 text-xs leading-5 text-amber-900"><strong>检查阶段</strong><br />已接入真实评测音频；抽样清单尚未冻结。</div>}
             {manifest.quality_notice && <p className="rounded-xl border border-amber-300/60 bg-amber-50 p-3 text-xs leading-5 text-amber-900">{manifest.quality_notice}</p>}
           </aside>
@@ -695,7 +698,7 @@ export default function Home() {
                 const key = scoreKey(task.task_type, group.group_id, sample.anonymousId);
                 const record = scores[key] ?? {};
                 const complete = isSampleComplete(task, group.group_id, sample.anonymousId);
-                const revealed = Boolean(revealedModels[key]);
+                const revealed = activeTaskComplete && Boolean(revealedModels[key]);
                 return (
                   <article className="sample-card" key={`${group.group_id}:${sample.audio_url}`}>
                     <div className="sample-head">
@@ -706,10 +709,10 @@ export default function Home() {
                           <Button
                             size="sm"
                             variant={revealed ? 'secondary' : 'outline'}
-                            disabled={!complete || revealed}
+                            disabled={!activeTaskComplete || revealed}
                             onClick={() => setRevealedModels((current) => ({ ...current, [key]: true }))}
                           >
-                            {revealed ? `真实模型：${sample.model}` : complete ? '查看真实模型' : '评分完成后可查看'}
+                            {revealed ? `真实模型：${sample.model}` : activeTaskComplete ? '查看真实模型' : '全部 Group 完成后可查看'}
                           </Button>
                         )}
                       </div>
