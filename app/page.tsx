@@ -669,7 +669,7 @@ export default function Home() {
 
           <section className="min-w-0">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-              <div><p className="eyebrow">{task.title} · {activeSamplingGroup?.title ?? '初始抽样'} · Group {String(activeSamplingGroupPosition + 1).padStart(2, '0')}</p><h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">比较本组完整生成结果</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{task.short_description} 同一时间只会播放一个 Sample。</p></div>
+              <div><p className="eyebrow">{task.title} · {activeSamplingGroup?.title ?? '初始抽样'} · Group {String(activeSamplingGroupPosition + 1).padStart(2, '0')}</p><h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">{task.title}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{task.short_description} 同一时间只会播放一个 Sample。</p></div>
               <div className="flex flex-wrap items-center justify-end gap-2">
                 {samplingGroups.length > 1 && <Select value={activeSamplingGroupId} onValueChange={(value) => value && goToSamplingGroup(value)}>
                   <SelectTrigger className="h-9 min-w-40 bg-card" aria-label="选择抽样组"><SelectValue /></SelectTrigger>

@@ -10,7 +10,7 @@
     {
       "task_type": "continuation",
       "title": "POP909 音乐续写",
-      "short_description": "在 POP909 上先试听 GT 原曲参考，再比较各方法保留原始 4 小节 Prompt 与后续 12 小节续写的结果，评价衔接、稳定性、和声与整体质量。",
+      "short_description": "在 POP909 上先试听 GT 原曲参考，再比较各方法的续写结果。每个 Sample 的前 4 小节为固定 Prompt，后 12 小节为各方法生成的续写部分；请评价衔接、稳定性、和声与整体质量。",
       "rules_markdown": "/rules/continuation.md",
       "metrics": [
         {
