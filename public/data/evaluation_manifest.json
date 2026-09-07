@@ -1,7 +1,7 @@
 {
   "study_id": "pop909_pop1k7_subjective_evaluation",
   "phase": "development",
-  "version": "3.0.0-chord-conditioned",
+  "version": "3.0.1-chord-velocity80",
   "audio_delivery": "local_package",
   "show_model_names": false,
   "allow_model_reveal_after_scoring": true,
@@ -1619,7 +1619,7 @@
     {
       "task_type": "continuation_pop1k7_long",
       "title": "Pop1k7 长程生成一致性",
-      "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中前后风格、和声节奏、长程发展与后半段质量。",
+      "short_description": "完整试听 96 个 4/4 小节，评价长歌曲生成中前后风格、节奏一致性、和声稳定性、长程发展与后半段质量。",
       "rules_markdown": "/rules/long-continuation.md",
       "metrics": [
         {
@@ -1628,9 +1628,14 @@
           "description": "完整作品前半段与后半段在曲风、情绪、织体和音乐语言上是否保持一致。"
         },
         {
-          "id": "harmony_rhythm_stability",
-          "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）",
-          "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
+          "id": "rhythmic_consistency",
+          "label": "节奏一致性（Rhythmic Consistency）",
+          "description": "节奏型、节拍、速度感和律动在长程范围内是否连续、稳定，是否出现卡顿、突变或节奏失控。"
+        },
+        {
+          "id": "harmonic_stability",
+          "label": "和声稳定性（Harmonic Stability）",
+          "description": "调性、和弦进行与和声语言在长程范围内是否稳定，变化是否具有合理过渡，是否出现无逻辑漂移或和声崩坏。"
         },
         {
           "id": "long_term_development",
@@ -1796,7 +1801,7 @@
     {
       "task_type": "continuation_pop909_long",
       "title": "POP909 长程生成一致性",
-      "short_description": "完整试听 96 个 4/4 小节，比较 DID、CP 与 NMT 的前后风格、和声节奏、长程发展与后半段质量。",
+      "short_description": "完整试听 96 个 4/4 小节，比较 DID、CP 与 NMT 的前后风格、节奏一致性、和声稳定性、长程发展与后半段质量。",
       "rules_markdown": "/rules/long-continuation-pop909.md",
       "metrics": [
         {
@@ -1805,9 +1810,14 @@
           "description": "完整作品前半段与后半段在曲风、情绪、织体和音乐语言上是否保持一致。"
         },
         {
-          "id": "harmony_rhythm_stability",
-          "label": "节奏一致性与和声稳定性（Rhythmic Consistency and Harmonic Stability）",
-          "description": "节奏型、节拍、速度感和律动在长程范围内是否保持一致，并评价调性与和声语言是否稳定。"
+          "id": "rhythmic_consistency",
+          "label": "节奏一致性（Rhythmic Consistency）",
+          "description": "节奏型、节拍、速度感和律动在长程范围内是否连续、稳定，是否出现卡顿、突变或节奏失控。"
+        },
+        {
+          "id": "harmonic_stability",
+          "label": "和声稳定性（Harmonic Stability）",
+          "description": "调性、和弦进行与和声语言在长程范围内是否稳定，变化是否具有合理过渡，是否出现无逻辑漂移或和声崩坏。"
         },
         {
           "id": "long_term_development",
@@ -2432,7 +2442,7 @@
     {
       "task_type": "chord_conditioned",
       "title": "POP909 给定和弦生成",
-      "short_description": "先试听 GT 原曲参考，再比较 DID 与 FGG 在相同和弦条件下生成的约 32 秒音乐，评价和弦遵循、旋律、节奏、结构与整体质量。",
+      "short_description": "先试听 GT 原曲参考，再比较 DID 原始力度、DID-80 与 FGG-80 在相同和弦条件下生成的约 32 秒音乐，评价和弦遵循、旋律、节奏、结构与整体质量。",
       "rules_markdown": "/rules/chord-conditioned.md",
       "metrics": [
         {
@@ -2470,7 +2480,7 @@
       ],
       "groups": [
         {
-          "group_id": "chord_conditioned__32sec__346",
+          "group_id": "chord_conditioned__32sec-velocity80__346",
           "sample_id": "346",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2484,13 +2494,17 @@
               "audio_url": "/audio/chord_conditioned/346/d33e892d6113c16d7a53da0f.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/346/1d78a23e3576f25295954f5a.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/346/37dd427b32eaefc12793ce28.mp3"
+              "audio_url": "/audio/chord_conditioned/346/d8fe017cf195b5a4ef640e43.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__290",
+          "group_id": "chord_conditioned__32sec-velocity80__290",
           "sample_id": "290",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2504,13 +2518,17 @@
               "audio_url": "/audio/chord_conditioned/290/9b51c3368fcac27eb8fa42bb.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/290/b75b333d699689df3c4ace0f.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/290/b14e47c10276589fa6c9dabe.mp3"
+              "audio_url": "/audio/chord_conditioned/290/31b813247a643c11d5262653.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__705",
+          "group_id": "chord_conditioned__32sec-velocity80__705",
           "sample_id": "705",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2524,13 +2542,17 @@
               "audio_url": "/audio/chord_conditioned/705/3514aa1c371c91a192d970ba.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/705/7dad6d2de98f66cd61a49872.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/705/d0b90c6cca8813d604194b37.mp3"
+              "audio_url": "/audio/chord_conditioned/705/06a2c9a84f670e193f260477.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__300",
+          "group_id": "chord_conditioned__32sec-velocity80__300",
           "sample_id": "300",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2544,13 +2566,17 @@
               "audio_url": "/audio/chord_conditioned/300/26ef989d907d05f5c5413acb.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/300/32fa6e796cd229388142f465.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/300/4289e4ac105d21589c5bd4ae.mp3"
+              "audio_url": "/audio/chord_conditioned/300/53407db6862583a1152dd3d9.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__375",
+          "group_id": "chord_conditioned__32sec-velocity80__375",
           "sample_id": "375",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2564,13 +2590,17 @@
               "audio_url": "/audio/chord_conditioned/375/12bdbdf7cef353646faa9158.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/375/36c17cd7a1636a1ecbc0002e.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/375/ab23ffe52737fa013d8daf19.mp3"
+              "audio_url": "/audio/chord_conditioned/375/48df8867987dc9772cf479a0.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__748",
+          "group_id": "chord_conditioned__32sec-velocity80__748",
           "sample_id": "748",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2584,13 +2614,17 @@
               "audio_url": "/audio/chord_conditioned/748/b8f60577d0647cde10eebe90.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/748/22756b0b631dcc32d9da1e0a.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/748/48761712db6d9928036de1f1.mp3"
+              "audio_url": "/audio/chord_conditioned/748/e57c3a8fb373e9fe457b1e76.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__427",
+          "group_id": "chord_conditioned__32sec-velocity80__427",
           "sample_id": "427",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2604,13 +2638,17 @@
               "audio_url": "/audio/chord_conditioned/427/4ad02d5c74ae7fd65f7c67e2.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/427/f1e2482aa752d2d9e61630ea.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/427/e2aba4ef6dc2cd199cf409ab.mp3"
+              "audio_url": "/audio/chord_conditioned/427/0ef6ac24b65af91722349e93.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__837",
+          "group_id": "chord_conditioned__32sec-velocity80__837",
           "sample_id": "837",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2624,13 +2662,17 @@
               "audio_url": "/audio/chord_conditioned/837/1ac3a3ee439ae96a827fb4d4.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/837/0dae95cdb47c4efd1c6677b8.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/837/5853bf7ce76e9b56dcd700fd.mp3"
+              "audio_url": "/audio/chord_conditioned/837/46396743ff90c81166238caa.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__160",
+          "group_id": "chord_conditioned__32sec-velocity80__160",
           "sample_id": "160",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2644,13 +2686,17 @@
               "audio_url": "/audio/chord_conditioned/160/4d996016a827840528cc6c69.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/160/a27aa187281eeeb73fa5d50e.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/160/b86a9009da9d4640608ee16f.mp3"
+              "audio_url": "/audio/chord_conditioned/160/85d420275a319efe88ca5e5c.mp3"
             }
           ]
         },
         {
-          "group_id": "chord_conditioned__32sec__359",
+          "group_id": "chord_conditioned__32sec-velocity80__359",
           "sample_id": "359",
           "sampling_group_id": "primary",
           "sampling_group_title": "初始抽样",
@@ -2664,8 +2710,12 @@
               "audio_url": "/audio/chord_conditioned/359/d58b5f9c30a60960f452be6b.mp3"
             },
             {
+              "model": "DID-80",
+              "audio_url": "/audio/chord_conditioned/359/7f954d392e40fb801aeddc19.mp3"
+            },
+            {
               "model": "FGG",
-              "audio_url": "/audio/chord_conditioned/359/703e2be75660cf55811765e4.mp3"
+              "audio_url": "/audio/chord_conditioned/359/a3849d64adacb88ccea72209.mp3"
             }
           ]
         }

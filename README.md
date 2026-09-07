@@ -44,6 +44,8 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 伴奏任务保留 DID 与 GT 的原始力度；D3PIA、FGG、Polyffusion、WholeSongGen 统一覆盖为力度 80，并额外加入使用同一 DID MIDI、仅将正力度 `note_on` 覆盖为 80 的 `DID-80` 对照版本。力度覆盖不会改变音高、起音位置、音符时值、轨道、通道或其他 MIDI 事件。
 
+给定和弦生成任务同样保留 DID 原始力度版本，并增加统一力度 80 的 `DID-80` 对照版本；FGG 统一覆盖为力度 80，GT 保留原始力度且仅作参考。
+
 续写源文件明显不足 16 小节时，默认以 `insufficient_length` 拒绝处理；检查阶段可显式开启 `allow_short_preview`，保留真实较短时长并写入 `length_warning`，页面提示不能用于正式评测。当前 BEAT 文件约 64 拍（32 个 2/4 小节、16 个 4/4 小节），正好满足本次目标；MuseTok 部分文件约 32 拍，仍只有 8 个 4/4 小节。不会通过倍速拉伸、循环或拼接补足长度。伴奏保持 16 个 4/4 小节，在 120 BPM 下约为 32 秒。
 
 每组首先展示 GT 原曲参考，GT 不评分；其余生成方法随机匿名排序并纳入平均分。匿名顺序对同一评测员保持稳定，并在每个任务的每个抽样组内按模型数量分块均衡首位分布，避免某个模型高频出现在 Sample A；其余位置仍独立随机。Prompt 审计只进行只读比较，容许时间偏移后报告音高/起音差异，不据此修改模型输出。相位对齐仅用于分析。比较 GT 前四小节时若源方法实际仅提供更短 Prompt，该指标还会包含生成内容，不能直接解释为编码错误。评分按评测版本隔离保存，旧评分保留在原浏览器存储中，不混入本版统计。
@@ -52,7 +54,7 @@ python tools/prepare_evaluation.py preprocess --config evaluation.config.json --
 
 全部预处理通过后，可运行 `python tools/prepare_evaluation.py web-manifest --config evaluation.config.json`，在 `evaluation_workspace/web_data` 生成网页配置。该命令遇到任何缺失或失败样本都会停止；存在长度警告时仅生成带提示的 development 配置。随后运行 `python tools/verify_evaluation.py --config evaluation.config.json` 验证源音符事件、BPM、实际音频长度及 GT 参考完整性。
 
-网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务、全部抽样组、对应网页评测配置和音频的 `pop909_eval_audio_all_tasks_*.zip`，同时保留各单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，五个任务的所有抽样组便会同时加载。网页会在本地核对配置、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
+网页不托管评测音频。运行 `python tools/package_local_audio.py --config evaluation.config.json` 会在 `evaluation_workspace/packages` 生成一个包含全部任务、全部抽样组、对应网页评测配置和音频的 `pop909_eval_audio_all_tasks_*.zip`，同时保留各单任务 ZIP 供开发调试。正式评测时只需分发并解压“全部任务”总包；评测者在网页中选择一次解压后的顶层文件夹，六个任务的所有抽样组便会同时加载。网页会在本地核对配置、任务数量、文件数量、大小和 SHA-256；验证通过后用本地文件播放，音频不会上传到网站。
 
 ## 自助新增抽样组
 
