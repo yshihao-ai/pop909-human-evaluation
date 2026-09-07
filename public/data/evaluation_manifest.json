@@ -529,7 +529,7 @@
     {
       "task_type": "accompaniment",
       "title": "POP909 伴奏生成",
-      "short_description": "完整试听 16 个 4/4 小节的旋律与生成伴奏，评价旋律伴奏协调性、和声合理性、节奏一致性、音乐正确性与整体质量。",
+      "short_description": "伴奏生成模型的输入包括每个位置的和弦以及旋律。完整试听 16 个 4/4 小节的旋律与生成伴奏，评价旋律伴奏协调性、和声合理性、节奏一致性、音乐正确性与整体质量。",
       "rules_markdown": "/rules/accompaniment.md",
       "metrics": [
         {
@@ -1008,7 +1008,7 @@
     {
       "task_type": "chord_conditioned",
       "title": "POP909 给定和弦生成",
-      "short_description": "先试听 GT 原曲参考，再比较 DID 原始力度、DID-80 与 FGG-80 在相同和弦条件下生成的约 32 秒音乐，评价和弦遵循、旋律、节奏、结构与整体质量。",
+      "short_description": "生成模型只获知每个位置的和弦；除和弦外，不提供旋律、织体、配器或其他任何音乐信息。先试听 GT 原曲参考，再比较 DID 原始力度、DID-80 与 FGG-80 在相同和弦条件下生成的约 32 秒音乐，评价和弦遵循、旋律、节奏、结构与整体质量。",
       "rules_markdown": "/rules/chord-conditioned.md",
       "metrics": [
         {
